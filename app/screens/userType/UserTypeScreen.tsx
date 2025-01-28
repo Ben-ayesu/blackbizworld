@@ -1,9 +1,11 @@
-import { View, StyleSheet, Text } from "react-native";
+import {View, StyleSheet, Text, TouchableOpacity} from "react-native";
 import { SelectionCard } from "@/components/userType/SelectionCard";
 import { useState } from "react";
 import {LinearGradient} from "expo-linear-gradient";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IonIcon from 'react-native-vector-icons/Ionicons';
+import { router } from 'expo-router';
+
 
 export const UserTypeScreen = () => {
   const [selectedType, setSelectedType] = useState<string | null>(null);
@@ -18,6 +20,14 @@ export const UserTypeScreen = () => {
       label: "Consumer",
     },
   ];
+
+  const handleContinue = () => {
+    if (selectedType === "Business") {
+      router.push("/(auth)/businessRegistration");
+    } else if (selectedType === "Consumer") {
+      router.push("/(auth)/customerRegistration");
+    }
+  };
 
   return (
       <View style={styles.screenContainer}>
@@ -44,9 +54,9 @@ export const UserTypeScreen = () => {
             ))}
           </View>
 
-          <View style={styles.continueButton}>
+          <TouchableOpacity style={styles.continueButton} onPress={handleContinue} disabled={!selectedType}>
             <Text style={styles.continueText}>Continue</Text>
-          </View>
+          </TouchableOpacity>
         </LinearGradient>
       </View>
   );
