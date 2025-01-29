@@ -1,10 +1,10 @@
 import { View, StyleSheet } from "react-native";
-import { LocationBar } from "../../components/home/LocationBar";
+import LocationBar from "../../components/home/LocationBar";
 import SearchBar from "../../components/home/SearchBar";
 import CategorySection from "../../components/home/CategorySection";
 import FeatureSection from "../../components/home/FeaturesSection";
 
-interface HomeScreenProps {}
+// interface HomeScreenProps {}
 
 const HomeScreen = () => {
     return (

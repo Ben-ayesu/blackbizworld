@@ -1,8 +1,8 @@
 import { View, Text, Image, StyleSheet } from "react-native";
 
-interface LocationBarProps {}
+// interface LocationBarProps {}
 
-const LocationBar: React.FC<LocationBarProps> = () => {
+const LocationBar = () => {
     return (
         <View style={styles.locationContainer}>
             <View style={styles.locationWrapper}>
