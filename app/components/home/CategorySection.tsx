@@ -1,6 +1,6 @@
 import { View, Text, Image, StyleSheet } from "react-native";
 
-interface CategorySectionProps {}
+// interface CategorySectionProps {}
 
 const categories = ["Cooks", "Food", "Drinks", "Clothes"];
 

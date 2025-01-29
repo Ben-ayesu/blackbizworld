@@ -6,10 +6,11 @@ export interface SocialIconProps {
 }
 
 export interface InputFieldProps {
-    label: string;
-    value?: string;
-    type?: string;
-    onChange?: (text: string) => void;
+    label: string,
+    value?: string,
+    type?: string,
+    onChange?: (text: string) => void,
+    icon?: JSX.Element
 }
 
 export interface ProgressDotsProps {

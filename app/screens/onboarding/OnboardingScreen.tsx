@@ -28,8 +28,9 @@ const OnboardingScreen = ({
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={["rgba(0,0,0,0.8)", "rgba(0,0,0,1)"]}
-        style={styles.gradient}
+          colors={["#4D2F0F", "black"]}
+          locations={[0, 0.65]}
+          style={styles.gradient}
       >
         <View style={styles.content}>
           <View style={styles.topSection}>

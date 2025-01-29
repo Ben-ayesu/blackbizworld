@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import InputField from "@/app/components/ui/InputField";
 import SocialIcon from "@/app/components/ui/SocialIcon";
+import { Feather } from '@expo/vector-icons';
 import { router } from "expo-router";
 import {useState} from "react";
 
@@ -48,6 +49,8 @@ const CustomerRegistrationScreen = () => {
                     label="Full Name"
                     value={formData.fullName}
                     onChange={(text) => setFormData({...formData, fullName: text})}
+                    icon={<Feather name="user" size={20} color="#666" />} // Example icon
+
                 />
 
                 <InputField
@@ -108,42 +111,36 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         borderRadius: 40,
-        maxWidth: 480,
         width: "100%",
         alignItems: "center",
-        paddingBottom: 12,
         backgroundColor: "#222222",
+        padding: 20, // Add overall padding
+
     },
     header: {
         width: "100%",
         padding: 15,
         alignItems: "flex-start",
     },
-    time: {
-        fontFamily: "Roboto, sans-serif",
-        fontSize: 15,
-        color: "rgba(255, 255, 255, 1)",
-        fontWeight: "900",
-    },
     title: {
         color: "rgba(255, 255, 255, 1)",
         fontSize: 20,
         fontFamily: "Product Sans, sans-serif",
-        lineHeight: 24,
+        lineHeight: 32,
         textAlign: "center",
         marginTop: 38,
     },
     subtitle: {
-        color: "rgba(255, 255, 255, 1)",
-        fontSize: 12,
+        color: "#ccc", // Lighter text color
+        fontSize: 14, // Slightly larger
         fontFamily: "Work Sans, sans-serif",
         textAlign: "center",
         marginTop: 23,
     },
     formContainer: {
         width: "100%",
-        maxWidth: 331,
         marginTop: 40,
+        paddingHorizontal: 20,
         gap: 20,
     },
     actionContainer: {
@@ -154,14 +151,19 @@ const styles = StyleSheet.create({
     },
     registerButton: {
         width: "100%",
-        borderRadius: 8,
+        borderRadius: 25,
         backgroundColor: "rgba(93, 45, 9, 1)",
-        padding: 12,
+        padding: 15, // More padding
         alignItems: "center",
+        elevation: 2,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
     },
     registerButtonText: {
         fontFamily: "Poppins, sans-serif",
-        fontSize: 16,
+        fontSize: 18,
         color: "rgba(255, 255, 255, 1)",
         fontWeight: "600",
     },

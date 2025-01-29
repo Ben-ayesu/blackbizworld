@@ -1,8 +1,8 @@
 import { View, Text, Image, StyleSheet } from "react-native";
 
-interface SearchBarProps {}
+// interface SearchBarProps {}
 
-const SearchBar: React.FC<SearchBarProps> = () => {
+const SearchBar = () => {
     return (
         <View style={styles.searchContainer}>
             <Image
@@ -33,22 +33,22 @@ const styles = StyleSheet.create({
         alignItems: "stretch",
         gap: 10,
         overflow: "hidden",
-        flexDirection: "row", // Added to align icon and text horizontally
+        flexDirection: "row",
     },
     searchIcon: {
         alignSelf: "center",
         width: 18,
-        height: 18, // Explicit height instead of aspectRatio
+        height: 18,
     },
     searchInput: {
-        flex: 1, // Takes remaining space
+        flex: 1,
     },
     searchText: {
-        fontFamily: "Work Sans", // Removed ", sans-serif" as it's not valid in React Native
+        fontFamily: "Work Sans",
         fontSize: 10,
         color: "rgba(255, 255, 255, 0.55)",
         lineHeight: 16,
     }
 });
 
-export default SearchBar; // Changed to default export based on your previous warnings
+export default SearchBar;

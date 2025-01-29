@@ -23,7 +23,6 @@ const BusinessRegistrationScreen = () => {
     const router = useRouter();
 
     const handleRegister = () => {
-        // Handle registration logic here
         console.log("Registering with:", {
             businessName,
             businessAddress: employeeCount,
@@ -37,14 +36,12 @@ const BusinessRegistrationScreen = () => {
         {label: '1-10', value: '1-10'},
         {label: '11-100', value: '11-100'},
         {label: '101-1000', value: '101-1000'},
-        // ... more roles
     ];
 
     const provinceData = [
         {label: 'Quebec', value: 'quebec'},
         {label: 'Ontario', value: 'ontario'},
         {label: 'Alberta', value: 'alberta'},
-        // ... more provinces
     ];
 
     return (

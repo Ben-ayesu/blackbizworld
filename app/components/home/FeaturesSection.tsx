@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 
-interface FeatureSectionProps {}
+// interface FeatureSectionProps {}
 
 const FeatureSection = () => {
     return (
