@@ -6,7 +6,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import { router } from 'expo-router';
 
-
 const UserTypeScreen = () => {
   const [selectedType, setSelectedType] = useState<string | null>(null);
 
@@ -115,8 +114,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     marginTop: 64,
-    width: "75%",
-    justifyContent: "space-between",
+    gap: 40,
   },
   continueButton: {
     marginTop: 57,
