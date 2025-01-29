@@ -1,20 +1,12 @@
-import { View, Image, StyleSheet, Dimensions } from "react-native";
-import { StatusBar } from "@/app/components/onboarding/StatusBar";
-import { SignupCard } from "@/app/components/onboarding/SignupCard";
-import { useRouter } from "expo-router";
-import { LinearGradient } from "expo-linear-gradient";
+import {Dimensions, Image, StyleSheet, View} from "react-native";
+import {StatusBar} from "@/app/components/onboarding/StatusBar";
+import {SignupCard} from "@/app/components/onboarding/SignupCard";
+import {useRouter} from "expo-router";
+import {LinearGradient} from "expo-linear-gradient";
+import {OnboardingScreenProps} from "@/app/types/types";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
-
-interface OnboardingScreenProps {
-  step: number;
-  showLogo?: boolean;
-  imageSource: any;
-  title: string;
-  subtitle: string;
-  buttonText: string;
-}
 
 export const OnboardingScreen = ({
   step,

@@ -31,3 +31,12 @@ export interface SelectionCardProps {
     onSelect: () => void;
     isSelected: boolean;
 }
+
+export interface OnboardingScreenProps {
+    step: number;
+    showLogo?: boolean;
+    imageSource: any;
+    title: string;
+    subtitle: string;
+    buttonText: string;
+}
