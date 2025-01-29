@@ -4,9 +4,12 @@ import {
     StyleSheet,
     TouchableOpacity,
     SafeAreaView,
+    Platform,
+    StatusBar,
+    Dimensions
 } from "react-native";
 import InputField from "@/app/components/ui/InputField";
-import SocialIcon from "@/app/components/ui/SocialIcon";
+import { FontAwesome } from '@expo/vector-icons';
 import { router } from "expo-router";
 import {useState} from "react";
 import {LinearGradient} from "expo-linear-gradient";
@@ -19,15 +22,16 @@ const CustomerRegistrationScreen = () => {
         confirmPassword: '',
     });
 
+    const screenHeight = Dimensions.get('window').height;
+
     const socialIcons = [
-        { imageUrl: "https://cdn.builder.io/api/v1/image/assets/0631d207b9dc4b438681345940ab050f/72a8d78a1e73eaa11351a74db6202965584e38f620089f89eac12ec47a6715b5?apiKey=0631d207b9dc4b438681345940ab050f&", alt: "Facebook signup" },
-        { imageUrl: "https://cdn.builder.io/api/v1/image/assets/0631d207b9dc4b438681345940ab050f/8beed9c81cfa48d44e2b1c882c4edf5d2450f79bfa4014598f7d2d590721a3fc?apiKey=0631d207b9dc4b438681345940ab050f&", alt: "Google signup" },
-        { imageUrl: "https://cdn.builder.io/api/v1/image/assets/0631d207b9dc4b438681345940ab050f/21ede2420fce4273cc87fa674d447dc67fddd5cec4c460b1769131d457267c01?apiKey=0631d207b9dc4b438681345940ab050f&", alt: "Apple signup" },
+        { name: 'facebook' as const, component: FontAwesome, color: '#3b5998' },
+        { name: 'google' as const, component: FontAwesome, color: '#db4a39' },
+        { name: 'apple' as const, component: FontAwesome, color: 'white' }
     ];
 
     const handleRegister = () => {
-        // Add registration logic here
-        router.push("/(auth)/onboarding1");
+        router.push("/home/home");
     };
 
     const handleLoginRedirect = () => {
@@ -40,73 +44,80 @@ const CustomerRegistrationScreen = () => {
             locations={[0, 0.65]}
             style={styles.container}
         >
-            <SafeAreaView style={styles.safeArea}>
-                <Text style={styles.title}>
-                    Start by setting up your account!
-                </Text>
-
-                <Text style={styles.subtitle}>
-                    Fill your information below or register with your social account
-                </Text>
-
-            <View style={styles.formContainer}>
-                <InputField
-                    label="Full Name"
-                    value={formData.fullName}
-                    onChange={(text) => setFormData({...formData, fullName: text})}
-                />
-
-                <InputField
-                    label="Email"
-                    value={formData.email}
-                    onChange={(text) => setFormData({...formData, email: text})}
-                />
-
-                <InputField
-                    label="Password"
-                    value={formData.password}
-                    type="password"
-                    onChange={(text) => setFormData({...formData, password: text})}
-                />
-
-                <InputField
-                    label="Confirm Password"
-                    value={formData.confirmPassword}
-                    type="password"
-                    onChange={(text) => setFormData({...formData, confirmPassword: text})}
-                />
-            </View>
-
-            <View style={styles.actionContainer}>
-                <TouchableOpacity style={styles.registerButton} onPress={handleRegister}>
-                    <Text style={styles.registerButtonText}>Create Account</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={handleLoginRedirect}>
-                    <Text style={styles.loginText}>
-                        Already have an account? Log in here
+            <SafeAreaView style={[styles.safeArea, { minHeight: screenHeight }]}>
+                <View style={styles.content}>
+                    <Text style={styles.title}>
+                        Start by setting up your account!
                     </Text>
-                </TouchableOpacity>
-            </View>
 
-            <View style={styles.socialContainer}>
-                <View style={styles.divider}>
-                    <View style={styles.dividerLine} />
-                    <Text style={styles.dividerText}>Or sign up with</Text>
-                    <View style={styles.dividerLine} />
+                    <Text style={styles.subtitle}>
+                        Fill your information below or register with your social account
+                    </Text>
+
+                    <View style={styles.formContainer}>
+                        <InputField
+                            label="Full Name"
+                            value={formData.fullName}
+                            onChange={(text) => setFormData({...formData, fullName: text})}
+                        />
+
+                        <InputField
+                            label="Email"
+                            value={formData.email}
+                            onChange={(text) => setFormData({...formData, email: text})}
+                        />
+
+                        <InputField
+                            label="Password"
+                            value={formData.password}
+                            type="password"
+                            onChange={(text) => setFormData({...formData, password: text})}
+                        />
+
+                        <InputField
+                            label="Confirm Password"
+                            value={formData.confirmPassword}
+                            type="password"
+                            onChange={(text) => setFormData({...formData, confirmPassword: text})}
+                        />
+                    </View>
+
+                    <View style={styles.actionContainer}>
+                        <TouchableOpacity style={styles.registerButton} onPress={handleRegister}>
+                            <Text style={styles.registerButtonText}>Create Account</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity onPress={handleLoginRedirect}>
+                            <Text style={styles.loginText}>
+                                Already have an account? Log in here
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={styles.socialContainer}>
+                        <View style={styles.divider}>
+                            <View style={styles.dividerLine} />
+                            <Text style={styles.dividerText}>Or sign up with</Text>
+                            <View style={styles.dividerLine} />
+                        </View>
+
+                        <View style={styles.socialIconsContainer}>
+                            {socialIcons.map((icon, index) => {
+                                const IconComponent = icon.component;
+                                return (
+                                    <TouchableOpacity key={index} style={styles.iconButton}>
+                                        <IconComponent name={icon.name} size={35} color={icon.color} />
+                                    </TouchableOpacity>
+                                );
+                            })}
+                        </View>
+
+                        <Text style={styles.helpText}>
+                            Need more info. Get help here
+                        </Text>
+                    </View>
                 </View>
-
-                <View style={styles.socialIconsContainer}>
-                    {socialIcons.map((icon, index) => (
-                        <SocialIcon key={index} {...icon} />
-                    ))}
-                </View>
-
-                <Text style={styles.helpText}>
-                    Need more info. Get help here
-                </Text>
-            </View>
-        </SafeAreaView>
+            </SafeAreaView>
         </LinearGradient>
     );
 };
@@ -121,12 +132,26 @@ const styles = StyleSheet.create({
         flex: 1,
         width: "100%",
         alignItems: "center",
-        padding: 20, // Add padding to safe area
+        justifyContent: 'space-between',
+        padding: 20,
+        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     },
-    header: {
-        width: "100%",
-        padding: 15,
-        alignItems: "flex-start",
+    content: {
+        flex: 1,
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'space-between', // Distribute space evenly
+    },
+    socialIconsContainer: {
+        flexDirection: "row",
+        marginTop: 32,
+        gap: 16,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+    },
+    iconButton: {
+        padding: 10,
     },
     title: {
         color: "rgba(255, 255, 255, 1)",
@@ -137,8 +162,8 @@ const styles = StyleSheet.create({
         marginTop: 38,
     },
     subtitle: {
-        color: "#ccc", // Lighter text color
-        fontSize: 14, // Slightly larger
+        color: "#ccc",
+        fontSize: 14,
         fontFamily: "Work Sans, sans-serif",
         textAlign: "center",
         marginTop: 23,
@@ -199,11 +224,6 @@ const styles = StyleSheet.create({
         color: "rgba(255, 255, 255, 0.5)",
         fontSize: 11,
         paddingHorizontal: 10,
-    },
-    socialIconsContainer: {
-        flexDirection: "row",
-        marginTop: 32,
-        gap: 16,
     },
     helpText: {
         color: "rgba(255, 255, 255, 1)",
