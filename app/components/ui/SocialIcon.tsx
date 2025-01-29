@@ -1,5 +1,5 @@
 import { View, Image, StyleSheet } from 'react-native';
-import type { SocialIconProps } from './types';
+import type { SocialIconProps } from '@/app/types/types';
 
 export const SocialIcon: React.FC<SocialIconProps> = ({ imageUrl, alt }) => (
     <View style={styles.iconContainer}>

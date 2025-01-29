@@ -1,6 +1,6 @@
 import { View, Image, StyleSheet, Dimensions } from "react-native";
-import { StatusBar } from "@/components/onboarding/StatusBar";
-import { SignupCard } from "@/components/onboarding/SignupCard";
+import { StatusBar } from "@/app/components/onboarding/StatusBar";
+import { SignupCard } from "@/app/components/onboarding/SignupCard";
 import { useRouter } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -45,7 +45,7 @@ export const OnboardingScreen = ({
           <View style={styles.topSection}>
             {showLogo && (
               <Image
-                source={require("../../../assets/images/img.png")}
+                source={require("@/app/assets/images/logo.png")}
                 style={styles.logo}
                 resizeMode="contain"
               />

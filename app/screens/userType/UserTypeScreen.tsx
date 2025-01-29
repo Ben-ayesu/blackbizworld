@@ -1,5 +1,5 @@
 import {View, StyleSheet, Text, TouchableOpacity} from "react-native";
-import { SelectionCard } from "@/components/userType/SelectionCard";
+import { SelectionCard } from "@/app/components/userType/SelectionCard";
 import { useState } from "react";
 import {LinearGradient} from "expo-linear-gradient";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';

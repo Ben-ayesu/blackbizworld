@@ -1,14 +1,7 @@
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
-import {ReactNode} from "react";
+import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {LinearGradient} from "expo-linear-gradient";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-
-interface SelectionCardProps {
-  icon: ReactNode;
-  label: string;
-  onSelect: () => void;
-  isSelected: boolean;
-}
+import {SelectionCardProps} from "@/app/types/types";
 
 export const SelectionCard = ({
   icon,

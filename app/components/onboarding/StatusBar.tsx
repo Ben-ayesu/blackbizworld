@@ -1,6 +1,6 @@
 import { View, Platform, StatusBar as RNStatusBar } from "react-native";
 
-export const StatusBar: React.FC = () => {
+export const StatusBar = () => {
   if (Platform.OS === "ios") {
     return (
       <View style={{ paddingTop: 44, backgroundColor: "transparent" }}>

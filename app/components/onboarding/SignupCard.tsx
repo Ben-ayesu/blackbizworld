@@ -1,14 +1,7 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { ProgressDots } from "./ProgressDots";
-import { LinearGradient } from "expo-linear-gradient";
-
-interface SignupCardProps {
-  title: string;
-  subtitle: string;
-  buttonText: string;
-  currentStep: number;
-  onPress: () => void;
-}
+import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {ProgressDots} from "./ProgressDots";
+import {LinearGradient} from "expo-linear-gradient";
+import {SignupCardProps} from "@/app/types/types";
 
 export const SignupCard = ({
   title,

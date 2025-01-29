@@ -5,8 +5,8 @@ import {
     TouchableOpacity,
     SafeAreaView,
 } from "react-native";
-import { InputField } from "../../(auth)/InputField";
-import { SocialIcon } from "../../(auth)/SocialIcon";
+import { InputField } from "@/app/components/ui/InputField";
+import { SocialIcon } from "@/app/components/ui/SocialIcon";
 import { router } from "expo-router";
 import {useState} from "react";
 

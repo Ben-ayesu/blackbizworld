@@ -1,5 +1,5 @@
 import { View, Text, TextInput, StyleSheet } from 'react-native';
-import type { InputFieldProps } from './types';
+import { InputFieldProps } from '../../types/types';
 
 export const InputField = ({ label, value, type, onChange }:InputFieldProps) => (
     <View style={styles.inputContainer}>
