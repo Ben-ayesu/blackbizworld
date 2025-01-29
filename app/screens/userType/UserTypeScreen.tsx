@@ -31,9 +31,8 @@ const UserTypeScreen = () => {
   return (
       <View style={styles.screenContainer}>
         <LinearGradient
-            colors={['rgba(234, 155, 96, 0.14)', 'rgba(153, 153, 153, 0)']}
-            start={{ x: 0.5, y: 0 }}
-            end={{ x: 0.5, y: 1 }}
+            colors={["#4D2F0F", "black"]}
+            locations={[0, 0.65]}
             style={styles.contentContainer}
         >
           <View style={styles.headerContainer}>

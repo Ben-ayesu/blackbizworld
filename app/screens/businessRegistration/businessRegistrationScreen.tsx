@@ -45,121 +45,124 @@ const BusinessRegistrationScreen = () => {
     ];
 
     return (
-        <LinearGradient
-            colors={["rgba(32, 32, 32, 0.9)", "rgba(18, 18, 18, 0.9)"]}
-            style={styles.container}
-        >
-            <View style={styles.formContainer}>
-                <Text style={styles.title}>Register your business</Text>
-                <Text style={styles.subtitle}>
-                    Fill your information below or register with your business number
-                </Text>
-
-                {/* Input Fields */}
-                <View style={styles.inputContainer}>
-                    <Text style={styles.label}>Enter the name of your business</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Business Name"
-                        placeholderTextColor="#777"
-                        value={businessName}
-                        onChangeText={setBusinessName}
-                    />
-                </View>
-
-                <View style={styles.inputContainer}>
-                    <Text style={styles.label}>
-                        Enter current employees count?
+        <View style={styles.container}>
+            <LinearGradient
+                colors={["#4D2F0F", "black"]}
+                locations={[0, 0.65]}
+                style={styles.gradient}
+            >
+                <View style={styles.formContainer}>
+                    <Text style={styles.title}>Register your business</Text>
+                    <Text style={styles.subtitle}>
+                        Fill your information below or register with your business number
                     </Text>
-                    <Dropdown
-                        style={[styles.dropdown, isFocus && {borderColor: '#A05620'}]}
-                        placeholderStyle={styles.placeholderStyle}
-                        selectedTextStyle={styles.selectedTextStyle}
-                        inputSearchStyle={styles.inputSearchStyle}
-                        iconStyle={styles.iconStyle}
-                        data={employeeCountData}
-                        search
-                        maxHeight={300}
-                        labelField="label"
-                        valueField="value"
-                        placeholder={!isFocus ? 'Select Employee Count' : '...'}
-                        searchPlaceholder="Search..."
-                        value={companyRole}
-                        onFocus={() => setIsFocus(true)}
-                        onBlur={() => setIsFocus(false)}
-                        onChange={item => {
-                            setCompanyRole(item.value);
-                            setIsFocus(false);
-                        }}
-                        renderLeftIcon={() => (
-                            <AntDesign
-                                style={styles.icon}
-                                color={isFocus ? '#A05620' : 'white'}
-                                name="Safety"
-                                size={20}
-                            />
-                        )}
-                    />
+
+                    {/* Input Fields */}
+                    <View style={styles.inputContainer}>
+                        <Text style={styles.label}>Enter the name of your business</Text>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Business Name"
+                            placeholderTextColor="#777"
+                            value={businessName}
+                            onChangeText={setBusinessName}
+                        />
+                    </View>
+
+                    <View style={styles.inputContainer}>
+                        <Text style={styles.label}>
+                            Enter current employees count?
+                        </Text>
+                        <Dropdown
+                            style={[styles.dropdown, isFocus && {borderColor: '#A05620'}]}
+                            placeholderStyle={styles.placeholderStyle}
+                            selectedTextStyle={styles.selectedTextStyle}
+                            inputSearchStyle={styles.inputSearchStyle}
+                            iconStyle={styles.iconStyle}
+                            data={employeeCountData}
+                            search
+                            maxHeight={300}
+                            labelField="label"
+                            valueField="value"
+                            placeholder={!isFocus ? 'Select Employee Count' : '...'}
+                            searchPlaceholder="Search..."
+                            value={companyRole}
+                            onFocus={() => setIsFocus(true)}
+                            onBlur={() => setIsFocus(false)}
+                            onChange={item => {
+                                setCompanyRole(item.value);
+                                setIsFocus(false);
+                            }}
+                            renderLeftIcon={() => (
+                                <AntDesign
+                                    style={styles.icon}
+                                    color={isFocus ? '#A05620' : 'white'}
+                                    name="Safety"
+                                    size={20}
+                                />
+                            )}
+                        />
+                    </View>
+
+                    <View style={styles.inputContainer}>
+                        <Text style={styles.label}>Enter your business address</Text>
+                        <Dropdown
+                            style={[styles.dropdown, isFocus && {borderColor: '#A05620'}]}
+                            placeholderStyle={styles.placeholderStyle}
+                            selectedTextStyle={styles.selectedTextStyle}
+                            inputSearchStyle={styles.inputSearchStyle}
+                            iconStyle={styles.iconStyle}
+                            data={provinceData}
+                            search
+                            maxHeight={300}
+                            labelField="label"
+                            valueField="value"
+                            placeholder={!isFocus ? 'Select Province' : '...'}
+                            searchPlaceholder="Search..."
+                            value={province}
+                            onFocus={() => setIsFocus(true)}
+                            onBlur={() => setIsFocus(false)}
+                            onChange={item => {
+                                setProvince(item.value);
+                                setIsFocus(false);
+                            }}
+                            renderLeftIcon={() => (
+                                <AntDesign
+                                    style={styles.icon}
+                                    color={isFocus ? '#A05620' : 'white'}
+                                    name="Safety"
+                                    size={20}
+                                />
+                            )}
+                        />
+                    </View>
+
+                    <View style={styles.inputContainer}>
+                        <Text style={styles.label}>Enter your Quebec Tax Code Number</Text>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Tax Code"
+                            placeholderTextColor="#777"
+                            value={quebecTaxCode}
+                            onChangeText={setQuebecTaxCode}
+                        />
+                    </View>
                 </View>
+                {/* Buttons */}
+                <View style={styles.bottomContainer}>
 
-                <View style={styles.inputContainer}>
-                    <Text style={styles.label}>Enter your business address</Text>
-                    <Dropdown
-                        style={[styles.dropdown, isFocus && {borderColor: '#A05620'}]}
-                        placeholderStyle={styles.placeholderStyle}
-                        selectedTextStyle={styles.selectedTextStyle}
-                        inputSearchStyle={styles.inputSearchStyle}
-                        iconStyle={styles.iconStyle}
-                        data={provinceData}
-                        search
-                        maxHeight={300}
-                        labelField="label"
-                        valueField="value"
-                        placeholder={!isFocus ? 'Select Province' : '...'}
-                        searchPlaceholder="Search..."
-                        value={province}
-                        onFocus={() => setIsFocus(true)}
-                        onBlur={() => setIsFocus(false)}
-                        onChange={item => {
-                            setProvince(item.value);
-                            setIsFocus(false);
-                        }}
-                        renderLeftIcon={() => (
-                            <AntDesign
-                                style={styles.icon}
-                                color={isFocus ? '#A05620' : 'white'}
-                                name="Safety"
-                                size={20}
-                            />
-                        )}
-                    />
+                    <TouchableOpacity style={styles.button} onPress={handleRegister}>
+                        <Text style={styles.buttonText}>Register your business</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.helpButton}>
+                        <Text style={styles.helpButtonText}>
+                            Need more info. Get help here
+                        </Text>
+                    </TouchableOpacity>
                 </View>
-
-                <View style={styles.inputContainer}>
-                    <Text style={styles.label}>Enter your Quebec Tax Code Number</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Tax Code"
-                        placeholderTextColor="#777"
-                        value={quebecTaxCode}
-                        onChangeText={setQuebecTaxCode}
-                    />
-                </View>
-            </View>
-            {/* Buttons */}
-            <View style={styles.bottomContainer}>
-
-                <TouchableOpacity style={styles.button} onPress={handleRegister}>
-                    <Text style={styles.buttonText}>Register your business</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.helpButton}>
-                    <Text style={styles.helpButtonText}>
-                        Need more info. Get help here
-                    </Text>
-                </TouchableOpacity>
-            </View>
-        </LinearGradient>
+            </LinearGradient>
+        </View>
     );
 };
 
@@ -167,6 +170,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "transparent",
+    },
+    gradient: {
+        flex: 1,
         padding: 20,
     },
     formContainer: {
@@ -179,9 +185,9 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         padding: 10,
         ...(Platform.OS === "android"
-            ? {elevation: 2} // Add shadow on Android
+            ? {elevation: 2}
             : {
-                shadowColor: "#000", // Add shadow on iOS
+                shadowColor: "#000",
                 shadowOffset: {width: 0, height: 2},
                 shadowOpacity: 0.2,
                 shadowRadius: 2,
