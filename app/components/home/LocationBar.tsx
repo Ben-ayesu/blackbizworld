@@ -2,7 +2,7 @@ import { View, Text, Image, StyleSheet } from "react-native";
 
 interface LocationBarProps {}
 
-export const LocationBar: React.FC<LocationBarProps> = () => {
+const LocationBar: React.FC<LocationBarProps> = () => {
     return (
         <View style={styles.locationContainer}>
             <View style={styles.locationWrapper}>
@@ -54,3 +54,5 @@ const styles = StyleSheet.create({
         aspectRatio: 1,
     },
 });
+
+export default LocationBar;

@@ -1,6 +1,7 @@
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {LinearGradient} from "expo-linear-gradient";
 import {SignupCardProps} from "@/app/types/types";
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ProgressDots from "@/app/components/onboarding/ProgressDots";
 
 const SignupCard = ({
@@ -23,7 +24,7 @@ const SignupCard = ({
         <TouchableOpacity style={styles.button} onPress={onPress}>
           <View style={styles.buttonInner}>
             <Text style={styles.buttonText}>{buttonText}</Text>
-            <Text style={styles.buttonArrow}>→</Text>
+            <Icon name="arrow-right" size={20} color="#261811" />
           </View>
         </TouchableOpacity>
         <View style={styles.progressContainer}>
@@ -81,11 +82,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
     marginRight: 8,
-  },
-  buttonArrow: {
-    color: "#261811",
-    fontSize: 16,
-    fontWeight: "600",
   },
   progressContainer: {
     marginTop: 8,
