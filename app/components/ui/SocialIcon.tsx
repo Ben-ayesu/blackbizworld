@@ -1,7 +1,7 @@
 import { View, Image, StyleSheet } from 'react-native';
 import type { SocialIconProps } from '@/app/types/types';
 
-export const SocialIcon: React.FC<SocialIconProps> = ({ imageUrl, alt }) => (
+const SocialIcon = ({ imageUrl, alt }: SocialIconProps) => (
     <View style={styles.iconContainer}>
         <Image
             resizeMode="contain"
@@ -31,3 +31,5 @@ const styles = StyleSheet.create({
         aspectRatio: 1,
     }
 });
+
+export default SocialIcon;

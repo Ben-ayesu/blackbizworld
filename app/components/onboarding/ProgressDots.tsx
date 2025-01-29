@@ -1,7 +1,7 @@
 import {View} from 'react-native';
 import {ProgressDotsProps} from "@/app/types/types";
 
-export const ProgressDots = ({
+const ProgressDots = ({
   totalDots = 3,
   activeDot = 0,
 }: ProgressDotsProps) => {
@@ -21,3 +21,5 @@ export const ProgressDots = ({
     </View>
   );
 };
+
+export default ProgressDots;

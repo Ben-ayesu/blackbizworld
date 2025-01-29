@@ -1,6 +1,6 @@
 import { View, Platform, StatusBar as RNStatusBar } from "react-native";
 
-export const StatusBar = () => {
+const StatusBar = () => {
   if (Platform.OS === "ios") {
     return (
       <View style={{ paddingTop: 44, backgroundColor: "transparent" }}>
@@ -19,3 +19,5 @@ export const StatusBar = () => {
     />
   );
 };
+
+export default StatusBar;

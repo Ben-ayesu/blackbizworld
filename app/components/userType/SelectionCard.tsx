@@ -3,7 +3,7 @@ import {LinearGradient} from "expo-linear-gradient";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {SelectionCardProps} from "@/app/types/types";
 
-export const SelectionCard = ({
+const SelectionCard = ({
   icon,
   label,
   onSelect,
@@ -89,3 +89,5 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   }
 });
+
+export default SelectionCard;

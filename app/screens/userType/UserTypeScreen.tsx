@@ -1,5 +1,5 @@
 import {View, StyleSheet, Text, TouchableOpacity} from "react-native";
-import { SelectionCard } from "@/app/components/userType/SelectionCard";
+import SelectionCard from "@/app/components/userType/SelectionCard";
 import { useState } from "react";
 import {LinearGradient} from "expo-linear-gradient";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -7,7 +7,7 @@ import IonIcon from 'react-native-vector-icons/Ionicons';
 import { router } from 'expo-router';
 
 
-export const UserTypeScreen = () => {
+const UserTypeScreen = () => {
   const [selectedType, setSelectedType] = useState<string | null>(null);
 
   const userTypes = [
@@ -131,3 +131,5 @@ const styles = StyleSheet.create({
     textDecorationLine:"underline"
   },
 });
+
+export default UserTypeScreen;

@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, StatusBar } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 
-export const BusinessRegistrationScreen = () => {
+const BusinessRegistrationScreen = () => {
     const [businessName, setBusinessName] = useState('');
     const [businessAddress, setBusinessAddress] = useState('');
     const [quebecTaxCode, setQuebecTaxCode] = useState('');
@@ -14,10 +14,6 @@ export const BusinessRegistrationScreen = () => {
 
     return (
         <View style={styles.container}>
-            <StatusBar barStyle="light-content" />
-            <View style={styles.header}>
-                <Text style={styles.time}>9:41</Text>
-            </View>
             <Text style={styles.title}>Register your business</Text>
             <Text style={styles.subtitle}>Fill your information below or register with your business number</Text>
             <View style={styles.inputContainer}>
@@ -128,3 +124,5 @@ const styles = StyleSheet.create({
         textDecorationLine: 'underline',
     },
 });
+
+export default BusinessRegistrationScreen;

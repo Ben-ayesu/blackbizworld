@@ -1,9 +1,9 @@
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {ProgressDots} from "./ProgressDots";
 import {LinearGradient} from "expo-linear-gradient";
 import {SignupCardProps} from "@/app/types/types";
+import ProgressDots from "@/app/components/onboarding/ProgressDots";
 
-export const SignupCard = ({
+const SignupCard = ({
   title,
   subtitle,
   buttonText,
@@ -33,6 +33,8 @@ export const SignupCard = ({
     </LinearGradient>
   );
 };
+
+export default SignupCard;
 
 const styles = StyleSheet.create({
   container: {

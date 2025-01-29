@@ -1,14 +1,13 @@
 import {Dimensions, Image, StyleSheet, View} from "react-native";
-import {StatusBar} from "@/app/components/onboarding/StatusBar";
-import {SignupCard} from "@/app/components/onboarding/SignupCard";
 import {useRouter} from "expo-router";
 import {LinearGradient} from "expo-linear-gradient";
 import {OnboardingScreenProps} from "@/app/types/types";
+import SignupCard from "@/app/components/onboarding/SignupCard";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
-export const OnboardingScreen = ({
+const OnboardingScreen = ({
   step,
   showLogo,
   imageSource,
@@ -28,7 +27,6 @@ export const OnboardingScreen = ({
 
   return (
     <View style={styles.container}>
-      <StatusBar />
       <LinearGradient
         colors={["rgba(0,0,0,0.8)", "rgba(0,0,0,1)"]}
         style={styles.gradient}
@@ -102,3 +100,5 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
   },
 });
+
+export default OnboardingScreen;

@@ -1,7 +1,7 @@
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { InputFieldProps } from '../../types/types';
 
-export const InputField = ({ label, value, type, onChange }:InputFieldProps) => (
+const InputField = ({ label, value, type, onChange }:InputFieldProps) => (
     <View style={styles.inputContainer}>
         <Text style={styles.label}>{label}</Text>
         <TextInput
@@ -38,3 +38,5 @@ const styles = StyleSheet.create({
         fontSize: 10,
     }
 });
+
+export default InputField;
