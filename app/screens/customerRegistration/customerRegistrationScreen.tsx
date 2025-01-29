@@ -100,8 +100,6 @@ const CustomerRegistrationScreen = () => {
                     Need more info. Get help here
                 </Text>
             </View>
-
-            <View style={styles.bottomBar} />
         </SafeAreaView>
     );
 };

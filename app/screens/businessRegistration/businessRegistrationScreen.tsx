@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import {useRouter} from "expo-router";
+
 
 const BusinessRegistrationScreen = () => {
     const [businessName, setBusinessName] = useState('');
@@ -7,9 +9,13 @@ const BusinessRegistrationScreen = () => {
     const [quebecTaxCode, setQuebecTaxCode] = useState('');
     const [employeeCount, setEmployeeCount] = useState('');
 
+    const router = useRouter();
+
+
     const handleRegister = () => {
         // Handle registration logic here
         console.log('Registering with:', { businessName, businessAddress, quebecTaxCode, employeeCount });
+        router.push("/home/home");
     };
 
     return (
