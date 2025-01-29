@@ -7,9 +7,9 @@ import {
 } from "react-native";
 import InputField from "@/app/components/ui/InputField";
 import SocialIcon from "@/app/components/ui/SocialIcon";
-import { Feather } from '@expo/vector-icons';
 import { router } from "expo-router";
 import {useState} from "react";
+import {LinearGradient} from "expo-linear-gradient";
 
 const CustomerRegistrationScreen = () => {
     const [formData, setFormData] = useState({
@@ -35,22 +35,25 @@ const CustomerRegistrationScreen = () => {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
-            <Text style={styles.title}>
-                Create Your{'\n'}Account
-            </Text>
+        <LinearGradient
+            colors={["#4D2F0F", "black"]}
+            locations={[0, 0.65]}
+            style={styles.container}
+        >
+            <SafeAreaView style={styles.safeArea}>
+                <Text style={styles.title}>
+                    Start by setting up your account!
+                </Text>
 
-            <Text style={styles.subtitle}>
-                Fill your information below or register with your social account
-            </Text>
+                <Text style={styles.subtitle}>
+                    Fill your information below or register with your social account
+                </Text>
 
             <View style={styles.formContainer}>
                 <InputField
                     label="Full Name"
                     value={formData.fullName}
                     onChange={(text) => setFormData({...formData, fullName: text})}
-                    icon={<Feather name="user" size={20} color="#666" />} // Example icon
-
                 />
 
                 <InputField
@@ -104,18 +107,21 @@ const CustomerRegistrationScreen = () => {
                 </Text>
             </View>
         </SafeAreaView>
+        </LinearGradient>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        borderRadius: 40,
         width: "100%",
         alignItems: "center",
-        backgroundColor: "#222222",
-        padding: 20, // Add overall padding
-
+    },
+    safeArea: {
+        flex: 1,
+        width: "100%",
+        alignItems: "center",
+        padding: 20, // Add padding to safe area
     },
     header: {
         width: "100%",
