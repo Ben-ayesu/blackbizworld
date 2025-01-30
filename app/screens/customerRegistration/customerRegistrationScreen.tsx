@@ -1,6 +1,5 @@
 import {
     View,
-    Text,
     StyleSheet,
     TouchableOpacity,
     SafeAreaView,
@@ -8,18 +7,32 @@ import {
     StatusBar,
     Dimensions
 } from "react-native";
-import InputField from "@/app/components/ui/InputField";
-import { FontAwesome } from '@expo/vector-icons';
+import { Text, TextInput, HelperText } from 'react-native-paper';
 import { router } from "expo-router";
-import {useState} from "react";
-import {LinearGradient} from "expo-linear-gradient";
+import { useState } from "react";
+import { LinearGradient } from "expo-linear-gradient";
+import { FontAwesome } from '@expo/vector-icons';
+import { useTheme } from 'react-native-paper';
 
 const CustomerRegistrationScreen = () => {
+    const theme = useTheme();
     const [formData, setFormData] = useState({
         fullName: '',
         email: '',
         password: '',
         confirmPassword: '',
+    });
+
+    const [errors, setErrors] = useState({
+        fullName: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+    });
+
+    const [secureTextEntry, setSecureTextEntry] = useState({
+        password: true,
+        confirmPassword: true,
     });
 
     const screenHeight = Dimensions.get('window').height;
@@ -30,12 +43,60 @@ const CustomerRegistrationScreen = () => {
         { name: 'apple' as const, component: FontAwesome, color: 'white' }
     ];
 
+    const validateForm = () => {
+        const newErrors = { ...errors };
+        let isValid = true;
+
+        if (!formData.fullName) {
+            newErrors.fullName = 'Full name is required';
+            isValid = false;
+        }
+
+        if (!formData.email) {
+            newErrors.email = 'Email is required';
+            isValid = false;
+        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+            newErrors.email = 'Please enter a valid email';
+            isValid = false;
+        }
+
+        if (!formData.password) {
+            newErrors.password = 'Password is required';
+            isValid = false;
+        } else if (formData.password.length < 8) {
+            newErrors.password = 'Password must be at least 8 characters';
+            isValid = false;
+        }
+
+        if (formData.password !== formData.confirmPassword) {
+            newErrors.confirmPassword = 'Passwords do not match';
+            isValid = false;
+        }
+
+        setErrors(newErrors);
+        return isValid;
+    };
+
     const handleRegister = () => {
-        router.push("/home/home");
+        if (validateForm()) {
+            router.push("/home/home");
+        }
     };
 
     const handleLoginRedirect = () => {
         router.back();
+    };
+
+    const customTheme = {
+        ...theme,
+        roundness: 12,  // Controls border radius for TextInput
+        colors: {
+            ...theme.colors,
+            primary: 'rgba(255, 255, 255, 0.7)',  // Placeholder text in white
+            text: 'rgba(255, 255, 255, 1)',
+            placeholder: 'rgba(255, 255, 255, 1)',  // Ensures input text is white
+            error: 'rgba(255, 69, 58, 0.9)',
+        },
     };
 
     return (
@@ -46,40 +107,100 @@ const CustomerRegistrationScreen = () => {
         >
             <SafeAreaView style={[styles.safeArea, { minHeight: screenHeight }]}>
                 <View style={styles.content}>
-                    <Text style={styles.title}>
+                    <Text variant="headlineMedium" style={styles.title}>
                         Start by setting up your account!
                     </Text>
 
-                    <Text style={styles.subtitle}>
+                    <Text variant="bodyMedium" style={styles.subtitle}>
                         Fill your information below or register with your social account
                     </Text>
 
                     <View style={styles.formContainer}>
-                        <InputField
+                        <TextInput
                             label="Full Name"
                             value={formData.fullName}
-                            onChange={(text) => setFormData({...formData, fullName: text})}
+                            onChangeText={(text) => {
+                                setFormData({ ...formData, fullName: text });
+                                if (errors.fullName) setErrors({ ...errors, fullName: '' });
+                            }}
+                            mode="outlined"
+                            error={!!errors.fullName}
+                            style={styles.input}
+                            theme={customTheme}
                         />
+                        <HelperText type="error" visible={!!errors.fullName}>
+                            {errors.fullName}
+                        </HelperText>
 
-                        <InputField
+                        <TextInput
                             label="Email"
                             value={formData.email}
-                            onChange={(text) => setFormData({...formData, email: text})}
+                            onChangeText={(text) => {
+                                setFormData({ ...formData, email: text });
+                                if (errors.email) setErrors({ ...errors, email: '' });
+                            }}
+                            mode="outlined"
+                            error={!!errors.email}
+                            style={styles.input}
+                            theme={customTheme}
+                            keyboardType="email-address"
+                            autoCapitalize="none"
                         />
+                        <HelperText type="error" visible={!!errors.email}>
+                            {errors.email}
+                        </HelperText>
 
-                        <InputField
+                        <TextInput
                             label="Password"
                             value={formData.password}
-                            type="password"
-                            onChange={(text) => setFormData({...formData, password: text})}
+                            onChangeText={(text) => {
+                                setFormData({ ...formData, password: text });
+                                if (errors.password) setErrors({ ...errors, password: '' });
+                            }}
+                            mode="outlined"
+                            error={!!errors.password}
+                            style={styles.input}
+                            theme={customTheme}
+                            secureTextEntry={secureTextEntry.password}
+                            right={
+                                <TextInput.Icon
+                                    icon={secureTextEntry.password ? "eye" : "eye-off"}
+                                    onPress={() => setSecureTextEntry({
+                                        ...secureTextEntry,
+                                        password: !secureTextEntry.password
+                                    })}
+                                />
+                            }
                         />
+                        <HelperText type="error" visible={!!errors.password}>
+                            {errors.password}
+                        </HelperText>
 
-                        <InputField
+                        <TextInput
                             label="Confirm Password"
                             value={formData.confirmPassword}
-                            type="password"
-                            onChange={(text) => setFormData({...formData, confirmPassword: text})}
+                            onChangeText={(text) => {
+                                setFormData({ ...formData, confirmPassword: text });
+                                if (errors.confirmPassword) setErrors({ ...errors, confirmPassword: '' });
+                            }}
+                            mode="outlined"
+                            error={!!errors.confirmPassword}
+                            style={styles.input}
+                            theme={customTheme}
+                            secureTextEntry={secureTextEntry.confirmPassword}
+                            right={
+                                <TextInput.Icon
+                                    icon={secureTextEntry.confirmPassword ? "eye" : "eye-off"}
+                                    onPress={() => setSecureTextEntry({
+                                        ...secureTextEntry,
+                                        confirmPassword: !secureTextEntry.confirmPassword
+                                    })}
+                                />
+                            }
                         />
+                        <HelperText type="error" visible={!!errors.confirmPassword}>
+                            {errors.confirmPassword}
+                        </HelperText>
                     </View>
 
                     <View style={styles.actionContainer}>
@@ -113,7 +234,7 @@ const CustomerRegistrationScreen = () => {
                         </View>
 
                         <Text style={styles.helpText}>
-                            Need more info. Get help here
+                            Need more info? Get help here
                         </Text>
                     </View>
                 </View>
@@ -126,13 +247,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         width: "100%",
-        alignItems: "center",
     },
     safeArea: {
         flex: 1,
         width: "100%",
-        alignItems: "center",
-        justifyContent: 'space-between',
         padding: 20,
         paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     },
@@ -140,7 +258,11 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         alignItems: 'center',
-        justifyContent: 'space-between', // Distribute space evenly
+        justifyContent: 'space-between',
+    },
+    input: {
+        backgroundColor: 'transparent',
+        marginVertical: 4,
     },
     socialIconsContainer: {
         flexDirection: "row",
@@ -152,19 +274,16 @@ const styles = StyleSheet.create({
     },
     iconButton: {
         padding: 10,
+        backgroundColor: 'rgba(255, 255, 255, 0.04)',
+        borderRadius: 8,
     },
     title: {
         color: "rgba(255, 255, 255, 1)",
-        fontSize: 20,
-        fontFamily: "Product Sans, sans-serif",
-        lineHeight: 32,
         textAlign: "center",
         marginTop: 38,
     },
     subtitle: {
         color: "#ccc",
-        fontSize: 14,
-        fontFamily: "Work Sans, sans-serif",
         textAlign: "center",
         marginTop: 23,
     },
@@ -172,7 +291,6 @@ const styles = StyleSheet.create({
         width: "100%",
         marginTop: 40,
         paddingHorizontal: 20,
-        gap: 20,
     },
     actionContainer: {
         width: "100%",
@@ -184,7 +302,7 @@ const styles = StyleSheet.create({
         width: "100%",
         borderRadius: 25,
         backgroundColor: "rgba(93, 45, 9, 1)",
-        padding: 15, // More padding
+        padding: 15,
         alignItems: "center",
         elevation: 2,
         shadowColor: "#000",
@@ -230,13 +348,6 @@ const styles = StyleSheet.create({
         fontSize: 11,
         fontFamily: "Work Sans, sans-serif",
         marginTop: 32,
-    },
-    bottomBar: {
-        width: 165,
-        height: 5,
-        backgroundColor: "rgba(255, 255, 255, 0.1)",
-        borderRadius: 100,
-        marginTop: 30,
     },
 });
 
