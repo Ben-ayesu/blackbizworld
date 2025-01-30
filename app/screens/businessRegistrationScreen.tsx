@@ -366,7 +366,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginTop: 40,
-    marginBottom: 10,
+    marginBottom: 4,
     alignSelf: "center",
   },
   subtitle: {
@@ -374,6 +374,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 30,
     alignSelf: "center",
+    textAlign: "center",
+    maxWidth: "80%",
+    lineHeight: 20,
   },
   inputContainer: {
     marginBottom: 20,
