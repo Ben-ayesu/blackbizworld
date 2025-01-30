@@ -11,8 +11,14 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Dropdown } from "react-native-element-dropdown";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useRouter } from "expo-router";
-import Animated, { FadeIn, FadeInUp } from "react-native-reanimated";
-import { authService } from "../services/auth/authService";
+import Animated, {
+  FadeIn,
+  FadeInUp,
+  useAnimatedStyle,
+  withSpring,
+  useSharedValue,
+} from "react-native-reanimated";
+import authService from "../services/auth/authService";
 import { validateBusinessRegistration } from "../utils/validation/formValidation";
 
 const BusinessRegistrationScreen = () => {
@@ -26,8 +32,44 @@ const BusinessRegistrationScreen = () => {
   const [companyRole, setCompanyRole] = useState(null);
   const [province, setProvince] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
+  const employeeDropdownHeight = useSharedValue(0);
+  const provinceDropdownHeight = useSharedValue(0);
 
   const router = useRouter();
+
+  const animatedEmployeeDropdownStyle = useAnimatedStyle(() => ({
+    opacity: withSpring(employeeDropdownHeight.value === 0 ? 0 : 1),
+    transform: [
+      {
+        scale: withSpring(employeeDropdownHeight.value === 0 ? 0.95 : 1, {
+          damping: 12,
+          stiffness: 100,
+        }),
+      },
+    ],
+    maxHeight: withSpring(employeeDropdownHeight.value, {
+      damping: 12,
+      stiffness: 80,
+      mass: 0.4,
+    }),
+  }));
+
+  const animatedProvinceDropdownStyle = useAnimatedStyle(() => ({
+    opacity: withSpring(provinceDropdownHeight.value === 0 ? 0 : 1),
+    transform: [
+      {
+        scale: withSpring(provinceDropdownHeight.value === 0 ? 0.95 : 1, {
+          damping: 12,
+          stiffness: 100,
+        }),
+      },
+    ],
+    maxHeight: withSpring(provinceDropdownHeight.value, {
+      damping: 12,
+      stiffness: 80,
+      mass: 0.4,
+    }),
+  }));
 
   const handleRegister = async () => {
     const data = {
@@ -63,9 +105,19 @@ const BusinessRegistrationScreen = () => {
   ];
 
   const provinceData = [
-    { label: "Quebec", value: "quebec" },
-    { label: "Ontario", value: "ontario" },
     { label: "Alberta", value: "alberta" },
+    { label: "British Columbia", value: "british_columbia" },
+    { label: "Manitoba", value: "manitoba" },
+    { label: "New Brunswick", value: "new_brunswick" },
+    { label: "Newfoundland and Labrador", value: "newfoundland_and_labrador" },
+    { label: "Northwest Territories", value: "northwest_territories" },
+    { label: "Nova Scotia", value: "nova_scotia" },
+    { label: "Nunavut", value: "nunavut" },
+    { label: "Ontario", value: "ontario" },
+    { label: "Prince Edward Island", value: "prince_edward_island" },
+    { label: "Quebec", value: "quebec" },
+    { label: "Saskatchewan", value: "saskatchewan" },
+    { label: "Yukon", value: "yukon" },
   ];
 
   return (
@@ -101,21 +153,30 @@ const BusinessRegistrationScreen = () => {
           <View style={styles.inputContainer}>
             <Text style={styles.label}>Enter current employees count?</Text>
             <Dropdown
-              style={[styles.dropdown, isFocus && { borderColor: "#A05620" }]}
+              style={styles.dropdown}
+              containerStyle={[
+                styles.dropdownContainer,
+                animatedEmployeeDropdownStyle,
+              ]}
               placeholderStyle={styles.placeholderStyle}
               selectedTextStyle={styles.selectedTextStyle}
-              inputSearchStyle={styles.inputSearchStyle}
               iconStyle={styles.iconStyle}
+              itemTextStyle={styles.dropdownItemText}
+              itemContainerStyle={styles.dropdownItemContainer}
               data={employeeCountData}
-              search
               maxHeight={300}
               labelField="label"
               valueField="value"
               placeholder={!isFocus ? "Select Employee Count" : "..."}
-              searchPlaceholder="Search..."
               value={companyRole}
-              onFocus={() => setIsFocus(true)}
-              onBlur={() => setIsFocus(false)}
+              onFocus={() => {
+                setIsFocus(true);
+                employeeDropdownHeight.value = 300;
+              }}
+              onBlur={() => {
+                setIsFocus(false);
+                employeeDropdownHeight.value = 0;
+              }}
               onChange={(item) => {
                 setCompanyRole(item.value);
                 setIsFocus(false);
@@ -123,7 +184,7 @@ const BusinessRegistrationScreen = () => {
               renderLeftIcon={() => (
                 <AntDesign
                   style={styles.icon}
-                  color={isFocus ? "#A05620" : "white"}
+                  color="white"
                   name="Safety"
                   size={20}
                 />
@@ -134,11 +195,17 @@ const BusinessRegistrationScreen = () => {
           <View style={styles.inputContainer}>
             <Text style={styles.label}>Enter your business address</Text>
             <Dropdown
-              style={[styles.dropdown, isFocus && { borderColor: "#A05620" }]}
+              style={styles.dropdown}
+              containerStyle={[
+                styles.dropdownContainer,
+                animatedProvinceDropdownStyle,
+              ]}
               placeholderStyle={styles.placeholderStyle}
               selectedTextStyle={styles.selectedTextStyle}
               inputSearchStyle={styles.inputSearchStyle}
               iconStyle={styles.iconStyle}
+              itemTextStyle={styles.dropdownItemText}
+              itemContainerStyle={styles.dropdownItemContainer}
               data={provinceData}
               search
               maxHeight={300}
@@ -147,8 +214,14 @@ const BusinessRegistrationScreen = () => {
               placeholder={!isFocus ? "Select Province" : "..."}
               searchPlaceholder="Search..."
               value={province}
-              onFocus={() => setIsFocus(true)}
-              onBlur={() => setIsFocus(false)}
+              onFocus={() => {
+                setIsFocus(true);
+                provinceDropdownHeight.value = 300;
+              }}
+              onBlur={() => {
+                setIsFocus(false);
+                provinceDropdownHeight.value = 0;
+              }}
               onChange={(item) => {
                 setProvince(item.value);
                 setIsFocus(false);
@@ -156,7 +229,7 @@ const BusinessRegistrationScreen = () => {
               renderLeftIcon={() => (
                 <AntDesign
                   style={styles.icon}
-                  color={isFocus ? "#A05620" : "white"}
+                  color="white"
                   name="Safety"
                   size={20}
                 />
@@ -213,8 +286,12 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: "#333",
     color: "#fff",
-    borderRadius: 5,
-    padding: 10,
+    borderRadius: 8,
+    padding: 12,
+    borderColor: "gray",
+    borderWidth: 0.5,
+    fontSize: 16,
+    height: 50,
     ...(Platform.OS === "android"
       ? { elevation: 2 }
       : {
@@ -252,6 +329,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     backgroundColor: "#333",
     color: "white",
+    ...(Platform.OS === "android"
+      ? { elevation: 2 }
+      : {
+          shadowColor: "#000",
+          shadowOffset: { width: 0, height: 2 },
+          shadowOpacity: 0.2,
+          shadowRadius: 2,
+        }),
   },
   icon: {
     marginRight: 5,
@@ -272,6 +357,9 @@ const styles = StyleSheet.create({
     height: 40,
     fontSize: 16,
     color: "white",
+    backgroundColor: "#492306",
+    borderRadius: 8,
+    paddingHorizontal: 8,
   },
   title: {
     color: "#fff",
@@ -298,6 +386,26 @@ const styles = StyleSheet.create({
   bottomContainer: {
     justifyContent: "flex-end",
     marginBottom: 15,
+  },
+  dropdownContainer: {
+    backgroundColor: "#333",
+    borderRadius: 8,
+    overflow: "hidden",
+    ...(Platform.OS === "android"
+      ? { elevation: 2 }
+      : {
+          shadowColor: "#000",
+          shadowOffset: { width: 0, height: 2 },
+          shadowOpacity: 0.2,
+          shadowRadius: 2,
+        }),
+  },
+  dropdownItemText: {
+    color: "white",
+    fontSize: 16,
+  },
+  dropdownItemContainer: {
+    backgroundColor: "#333",
   },
 });
 
