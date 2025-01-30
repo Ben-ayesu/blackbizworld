@@ -44,6 +44,7 @@ const BusinessRegistrationScreen = () => {
 
     if (!isValid) {
       // Handle validation errors
+      router.push("/home");
       return true;
     }
 

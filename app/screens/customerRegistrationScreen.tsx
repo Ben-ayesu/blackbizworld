@@ -116,22 +116,19 @@ const CustomerRegistrationScreen = () => {
             >
                 <SafeAreaView style={[styles.safeArea, { minHeight: screenHeight }]}>
                     <Animated.View 
-                        entering={FadeIn.duration(400)}
+                        entering={FadeIn.duration(300)}
                         style={styles.content}
                     >
-                        <Animated.Text 
-                            entering={FadeInUp.duration(400).delay(100)}
-                            style={styles.title}
-                        >
+                        <Text style={styles.title}>
                             Start by setting up your account!
-                        </Animated.Text>
+                        </Text>
 
-                        <Animated.Text style={styles.subtitle}>
+                        <Text style={styles.subtitle}>
                             Fill your information below or register with your social account
-                        </Animated.Text>
+                        </Text>
 
                         <Animated.View 
-                            entering={SlideInUp.duration(400).delay(100)}
+                            entering={FadeIn.duration(400)}
                             style={styles.formContainer}
                         >
                             <TextInput
