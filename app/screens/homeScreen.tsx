@@ -1,8 +1,8 @@
 import { View, StyleSheet, ScrollView } from "react-native";
-import LocationBar from "../../components/home/LocationBar";
-import SearchBar from "../../components/home/SearchBar";
-import CategorySection from "../../components/home/CategorySection";
-import FeatureSection from "../../components/home/FeaturesSection";
+import LocationBar from "../components/home/LocationBar";
+import SearchBar from "../components/home/SearchBar";
+import CategorySection from "../components/home/CategorySection";
+import FeatureSection from "../components/home/FeaturesSection";
 
 // interface HomeScreenProps {}
 

@@ -79,7 +79,7 @@ const CustomerRegistrationScreen = () => {
 
     const handleRegister = () => {
         if (validateForm()) {
-            router.push("/home/home");
+            router.push("/home");
         }
     };
 

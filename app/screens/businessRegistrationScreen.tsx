@@ -29,7 +29,7 @@ const BusinessRegistrationScreen = () => {
             quebecTaxCode,
             employeeCount,
         });
-        router.push("/home/home");
+        router.push("/home");
     };
 
     const employeeCountData = [

@@ -1,4 +1,4 @@
-import OnboardingScreen from "../screens/onboarding/OnboardingScreen";
+import OnboardingScreen from "../screens/OnboardingScreen";
 
 export default function Onboarding2() {
   return (

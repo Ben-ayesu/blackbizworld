@@ -1,4 +1,4 @@
-import BusinessRegistrationScreen from '../screens/businessRegistration/businessRegistrationScreen';
+import BusinessRegistrationScreen from '../screens/businessRegistrationScreen';
 
 export default function BusinessRegistration() {
     return <BusinessRegistrationScreen />;
