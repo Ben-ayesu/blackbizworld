@@ -11,6 +11,7 @@ import {LinearGradient} from "expo-linear-gradient";
 import {Dropdown} from 'react-native-element-dropdown';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import {useRouter} from "expo-router";
+import Animated, { FadeIn, FadeInUp } from 'react-native-reanimated';
 
 const BusinessRegistrationScreen = () => {
     const [businessName, setBusinessName] = useState("");
@@ -45,13 +46,19 @@ const BusinessRegistrationScreen = () => {
     ];
 
     return (
-        <View style={styles.container}>
+        <Animated.View 
+            entering={FadeIn.duration(400)}
+            style={styles.container}
+        >
             <LinearGradient
                 colors={["#4D2F0F", "black"]}
                 locations={[0, 0.65]}
                 style={styles.gradient}
             >
-                <View style={styles.formContainer}>
+                <Animated.View 
+                    entering={FadeInUp.duration(400).delay(200)}
+                    style={styles.formContainer}
+                >
                     <Text style={styles.title}>Register your business</Text>
                     <Text style={styles.subtitle}>
                         Fill your information below or register with your business number
@@ -147,10 +154,12 @@ const BusinessRegistrationScreen = () => {
                             onChangeText={setQuebecTaxCode}
                         />
                     </View>
-                </View>
+                </Animated.View>
                 {/* Buttons */}
-                <View style={styles.bottomContainer}>
-
+                <Animated.View 
+                    entering={FadeInUp.duration(400).delay(400)}
+                    style={styles.bottomContainer}
+                >
                     <TouchableOpacity style={styles.button} onPress={handleRegister}>
                         <Text style={styles.buttonText}>Register your business</Text>
                     </TouchableOpacity>
@@ -160,9 +169,9 @@ const BusinessRegistrationScreen = () => {
                             Need more info. Get help here
                         </Text>
                     </TouchableOpacity>
-                </View>
+                </Animated.View>
             </LinearGradient>
-        </View>
+        </Animated.View>
     );
 };
 

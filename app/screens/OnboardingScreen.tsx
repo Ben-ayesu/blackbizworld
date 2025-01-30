@@ -3,6 +3,12 @@ import {useRouter} from "expo-router";
 import {LinearGradient} from "expo-linear-gradient";
 import {OnboardingScreenProps} from "@/app/types/types";
 import SignupCard from "@/app/components/onboarding/SignupCard";
+import Animated, { 
+  FadeIn,
+  FadeOut,
+  SlideInRight,
+  SlideOutLeft 
+} from 'react-native-reanimated';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -26,13 +32,20 @@ const OnboardingScreen = ({
   };
 
   return (
-    <View style={styles.container}>
+    <Animated.View 
+      entering={FadeIn.duration(400)} 
+      exiting={FadeOut.duration(400)}
+      style={styles.container}
+    >
       <LinearGradient
-          colors={["#4D2F0F", "black"]}
-          locations={[0, 0.65]}
-          style={styles.gradient}
+        colors={["#4D2F0F", "black"]}
+        locations={[0, 0.65]}
+        style={styles.gradient}
       >
-        <View style={styles.content}>
+        <Animated.View 
+          entering={SlideInRight.duration(400).delay(200)} 
+          style={styles.content}
+        >
           <View style={styles.topSection}>
             {showLogo && (
               <Image
@@ -58,9 +71,9 @@ const OnboardingScreen = ({
               onPress={handleNext}
             />
           </View>
-        </View>
+        </Animated.View>
       </LinearGradient>
-    </View>
+    </Animated.View>
   );
 };
 

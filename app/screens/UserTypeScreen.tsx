@@ -1,21 +1,26 @@
-import {View, StyleSheet, Text, TouchableOpacity} from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import SelectionCard from "@/app/components/userType/SelectionCard";
 import { useState } from "react";
-import {LinearGradient} from "expo-linear-gradient";
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import IonIcon from 'react-native-vector-icons/Ionicons';
-import { router } from 'expo-router';
+import { LinearGradient } from "expo-linear-gradient";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import IonIcon from "react-native-vector-icons/Ionicons";
+import { router } from "expo-router";
+import Animated, { FadeIn, FadeInUp } from "react-native-reanimated";
 
 const UserTypeScreen = () => {
   const [selectedType, setSelectedType] = useState<string | null>(null);
 
   const userTypes = [
     {
-      icon: <Icon name="storefront-outline" size={30} color="rgba(93, 45, 9, 1)" />,
+      icon: (
+        <Icon name="storefront-outline" size={30} color="rgba(93, 45, 9, 1)" />
+      ),
       label: "Business",
     },
     {
-      icon: <IonIcon name="people-outline" size={30} color="rgba(93, 45, 9, 1)" />,
+      icon: (
+        <IonIcon name="people-outline" size={30} color="rgba(93, 45, 9, 1)" />
+      ),
       label: "Consumer",
     },
   ];
@@ -29,34 +34,47 @@ const UserTypeScreen = () => {
   };
 
   return (
-      <View style={styles.screenContainer}>
-        <LinearGradient
-            colors={["#4D2F0F", "black"]}
-            locations={[0, 0.65]}
-            style={styles.contentContainer}
+    <Animated.View
+      entering={FadeIn.duration(400)}
+      style={styles.screenContainer}
+    >
+      <LinearGradient
+        colors={["#4D2F0F", "black"]}
+        locations={[0, 0.65]}
+        style={styles.contentContainer}
+      >
+        <Animated.View
+          entering={FadeInUp.duration(400).delay(200)}
+          style={styles.headerContainer}
         >
-          <View style={styles.headerContainer}>
-            <Text style={styles.title}>Are you a business or consumer?</Text>
-            <Text style={styles.subtitle}>Please select one</Text>
-          </View>
+          <Text style={styles.title}>Are you a business or consumer?</Text>
+          <Text style={styles.subtitle}>Please select one</Text>
+        </Animated.View>
 
-          <View style={styles.selectionContainer}>
-            {userTypes.map((type) => (
-                <SelectionCard
-                    key={type.label}
-                    icon={type.icon}
-                    label={type.label}
-                    onSelect={() => setSelectedType(type.label)}
-                    isSelected={selectedType === type.label}
-                />
-            ))}
-          </View>
+        <Animated.View
+          entering={FadeInUp.duration(400).delay(400)}
+          style={styles.selectionContainer}
+        >
+          {userTypes.map((type) => (
+            <SelectionCard
+              key={type.label}
+              icon={type.icon}
+              label={type.label}
+              onSelect={() => setSelectedType(type.label)}
+              isSelected={selectedType === type.label}
+            />
+          ))}
+        </Animated.View>
 
-          <TouchableOpacity style={styles.continueButton} onPress={handleContinue} disabled={!selectedType}>
-            <Text style={styles.continueText}>Continue</Text>
-          </TouchableOpacity>
-        </LinearGradient>
-      </View>
+        <TouchableOpacity
+          style={styles.continueButton}
+          onPress={handleContinue}
+          disabled={!selectedType}
+        >
+          <Text style={styles.continueText}>Continue</Text>
+        </TouchableOpacity>
+      </LinearGradient>
+    </Animated.View>
   );
 };
 
@@ -125,7 +143,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     lineHeight: 24,
     letterSpacing: -0.28,
-    textDecorationLine:"underline"
+    textDecorationLine: "underline",
   },
 });
 

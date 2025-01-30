@@ -3,19 +3,26 @@ import LocationBar from "../components/home/LocationBar";
 import SearchBar from "../components/home/SearchBar";
 import CategorySection from "../components/home/CategorySection";
 import FeatureSection from "../components/home/FeaturesSection";
+import Animated, { FadeIn, FadeInUp } from 'react-native-reanimated';
 
 // interface HomeScreenProps {}
 
 const HomeScreen = () => {
     return (
-        <ScrollView style={styles.container}>
-            <View style={styles.mainContent}>
+        <Animated.ScrollView 
+            entering={FadeIn.duration(600)}
+            style={styles.container}
+        >
+            <Animated.View 
+                entering={FadeInUp.duration(800).delay(100)}
+                style={styles.mainContent}
+            >
                 <LocationBar />
                 <SearchBar/>
                 <CategorySection />
                 <FeatureSection />
-            </View>
-        </ScrollView>
+            </Animated.View>
+        </Animated.ScrollView>
     );
 };
 

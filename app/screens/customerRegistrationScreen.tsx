@@ -13,6 +13,11 @@ import { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { FontAwesome } from '@expo/vector-icons';
 import { useTheme } from 'react-native-paper';
+import Animated, { 
+    FadeIn,
+    SlideInUp,
+    FadeInUp 
+} from 'react-native-reanimated';
 
 const CustomerRegistrationScreen = () => {
     const theme = useTheme();
@@ -100,146 +105,160 @@ const CustomerRegistrationScreen = () => {
     };
 
     return (
-        <LinearGradient
-            colors={["#4D2F0F", "black"]}
-            locations={[0, 0.65]}
+        <Animated.View 
+            entering={FadeIn.duration(300)}
             style={styles.container}
         >
-            <SafeAreaView style={[styles.safeArea, { minHeight: screenHeight }]}>
-                <View style={styles.content}>
-                    <Text variant="headlineMedium" style={styles.title}>
-                        Start by setting up your account!
-                    </Text>
+            <LinearGradient
+                colors={["#4D2F0F", "black"]}
+                locations={[0, 0.65]}
+                style={styles.gradient}
+            >
+                <SafeAreaView style={[styles.safeArea, { minHeight: screenHeight }]}>
+                    <Animated.View 
+                        entering={FadeIn.duration(400)}
+                        style={styles.content}
+                    >
+                        <Animated.Text 
+                            entering={FadeInUp.duration(400).delay(100)}
+                            style={styles.title}
+                        >
+                            Start by setting up your account!
+                        </Animated.Text>
 
-                    <Text variant="bodyMedium" style={styles.subtitle}>
-                        Fill your information below or register with your social account
-                    </Text>
+                        <Animated.Text style={styles.subtitle}>
+                            Fill your information below or register with your social account
+                        </Animated.Text>
 
-                    <View style={styles.formContainer}>
-                        <TextInput
-                            label="Full Name"
-                            value={formData.fullName}
-                            onChangeText={(text) => {
-                                setFormData({ ...formData, fullName: text });
-                                if (errors.fullName) setErrors({ ...errors, fullName: '' });
-                            }}
-                            mode="outlined"
-                            error={!!errors.fullName}
-                            style={styles.input}
-                            theme={customTheme}
-                        />
-                        <HelperText type="error" visible={!!errors.fullName}>
-                            {errors.fullName}
-                        </HelperText>
+                        <Animated.View 
+                            entering={SlideInUp.duration(400).delay(100)}
+                            style={styles.formContainer}
+                        >
+                            <TextInput
+                                label="Full Name"
+                                value={formData.fullName}
+                                onChangeText={(text) => {
+                                    setFormData({ ...formData, fullName: text });
+                                    if (errors.fullName) setErrors({ ...errors, fullName: '' });
+                                }}
+                                mode="outlined"
+                                error={!!errors.fullName}
+                                style={styles.input}
+                                theme={customTheme}
+                            />
+                            <HelperText type="error" visible={!!errors.fullName}>
+                                {errors.fullName}
+                            </HelperText>
 
-                        <TextInput
-                            label="Email"
-                            value={formData.email}
-                            onChangeText={(text) => {
-                                setFormData({ ...formData, email: text });
-                                if (errors.email) setErrors({ ...errors, email: '' });
-                            }}
-                            mode="outlined"
-                            error={!!errors.email}
-                            style={styles.input}
-                            theme={customTheme}
-                            keyboardType="email-address"
-                            autoCapitalize="none"
-                        />
-                        <HelperText type="error" visible={!!errors.email}>
-                            {errors.email}
-                        </HelperText>
+                            <TextInput
+                                label="Email"
+                                value={formData.email}
+                                onChangeText={(text) => {
+                                    setFormData({ ...formData, email: text });
+                                    if (errors.email) setErrors({ ...errors, email: '' });
+                                }}
+                                mode="outlined"
+                                error={!!errors.email}
+                                style={styles.input}
+                                theme={customTheme}
+                                keyboardType="email-address"
+                                autoCapitalize="none"
+                            />
+                            <HelperText type="error" visible={!!errors.email}>
+                                {errors.email}
+                            </HelperText>
 
-                        <TextInput
-                            label="Password"
-                            value={formData.password}
-                            onChangeText={(text) => {
-                                setFormData({ ...formData, password: text });
-                                if (errors.password) setErrors({ ...errors, password: '' });
-                            }}
-                            mode="outlined"
-                            error={!!errors.password}
-                            style={styles.input}
-                            theme={customTheme}
-                            secureTextEntry={secureTextEntry.password}
-                            right={
-                                <TextInput.Icon
-                                    icon={secureTextEntry.password ? "eye" : "eye-off"}
-                                    onPress={() => setSecureTextEntry({
-                                        ...secureTextEntry,
-                                        password: !secureTextEntry.password
-                                    })}
-                                />
-                            }
-                        />
-                        <HelperText type="error" visible={!!errors.password}>
-                            {errors.password}
-                        </HelperText>
+                            <TextInput
+                                label="Password"
+                                value={formData.password}
+                                onChangeText={(text) => {
+                                    setFormData({ ...formData, password: text });
+                                    if (errors.password) setErrors({ ...errors, password: '' });
+                                }}
+                                mode="outlined"
+                                error={!!errors.password}
+                                style={styles.input}
+                                theme={customTheme}
+                                secureTextEntry={secureTextEntry.password}
+                                right={
+                                    <TextInput.Icon
+                                        icon={secureTextEntry.password ? "eye" : "eye-off"}
+                                        onPress={() => setSecureTextEntry({
+                                            ...secureTextEntry,
+                                            password: !secureTextEntry.password
+                                        })}
+                                    />
+                                }
+                            />
+                            <HelperText type="error" visible={!!errors.password}>
+                                {errors.password}
+                            </HelperText>
 
-                        <TextInput
-                            label="Confirm Password"
-                            value={formData.confirmPassword}
-                            onChangeText={(text) => {
-                                setFormData({ ...formData, confirmPassword: text });
-                                if (errors.confirmPassword) setErrors({ ...errors, confirmPassword: '' });
-                            }}
-                            mode="outlined"
-                            error={!!errors.confirmPassword}
-                            style={styles.input}
-                            theme={customTheme}
-                            secureTextEntry={secureTextEntry.confirmPassword}
-                            right={
-                                <TextInput.Icon
-                                    icon={secureTextEntry.confirmPassword ? "eye" : "eye-off"}
-                                    onPress={() => setSecureTextEntry({
-                                        ...secureTextEntry,
-                                        confirmPassword: !secureTextEntry.confirmPassword
-                                    })}
-                                />
-                            }
-                        />
-                        <HelperText type="error" visible={!!errors.confirmPassword}>
-                            {errors.confirmPassword}
-                        </HelperText>
-                    </View>
+                            <TextInput
+                                label="Confirm Password"
+                                value={formData.confirmPassword}
+                                onChangeText={(text) => {
+                                    setFormData({ ...formData, confirmPassword: text });
+                                    if (errors.confirmPassword) setErrors({ ...errors, confirmPassword: '' });
+                                }}
+                                mode="outlined"
+                                error={!!errors.confirmPassword}
+                                style={styles.input}
+                                theme={customTheme}
+                                secureTextEntry={secureTextEntry.confirmPassword}
+                                right={
+                                    <TextInput.Icon
+                                        icon={secureTextEntry.confirmPassword ? "eye" : "eye-off"}
+                                        onPress={() => setSecureTextEntry({
+                                            ...secureTextEntry,
+                                            confirmPassword: !secureTextEntry.confirmPassword
+                                        })}
+                                    />
+                                }
+                            />
+                            <HelperText type="error" visible={!!errors.confirmPassword}>
+                                {errors.confirmPassword}
+                            </HelperText>
+                        </Animated.View>
 
-                    <View style={styles.actionContainer}>
-                        <TouchableOpacity style={styles.registerButton} onPress={handleRegister}>
-                            <Text style={styles.registerButtonText}>Create Account</Text>
-                        </TouchableOpacity>
+                        <View style={styles.actionContainer}>
+                            <TouchableOpacity style={styles.registerButton} onPress={handleRegister}>
+                                <Text style={styles.registerButtonText}>Create Account</Text>
+                            </TouchableOpacity>
 
-                        <TouchableOpacity onPress={handleLoginRedirect}>
-                            <Text style={styles.loginText}>
-                                Already have an account? Log in here
+                            <TouchableOpacity onPress={handleLoginRedirect}>
+                                <Text style={styles.loginText}>
+                                    Already have an account? Log in here
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={styles.socialContainer}>
+                            <View style={styles.divider}>
+                                <View style={styles.dividerLine} />
+                                <Text style={styles.dividerText}>Or sign up with</Text>
+                                <View style={styles.dividerLine} />
+                            </View>
+
+                            <View style={styles.socialIconsContainer}>
+                                {socialIcons.map((icon, index) => {
+                                    const IconComponent = icon.component;
+                                    return (
+                                        <TouchableOpacity key={index} style={styles.iconButton}>
+                                            <IconComponent name={icon.name} size={35} color={icon.color} />
+                                        </TouchableOpacity>
+                                    );
+                                })}
+                            </View>
+
+                            <Text style={styles.helpText}>
+                                Need more info? Get help here
                             </Text>
-                        </TouchableOpacity>
-                    </View>
-
-                    <View style={styles.socialContainer}>
-                        <View style={styles.divider}>
-                            <View style={styles.dividerLine} />
-                            <Text style={styles.dividerText}>Or sign up with</Text>
-                            <View style={styles.dividerLine} />
                         </View>
-
-                        <View style={styles.socialIconsContainer}>
-                            {socialIcons.map((icon, index) => {
-                                const IconComponent = icon.component;
-                                return (
-                                    <TouchableOpacity key={index} style={styles.iconButton}>
-                                        <IconComponent name={icon.name} size={35} color={icon.color} />
-                                    </TouchableOpacity>
-                                );
-                            })}
-                        </View>
-
-                        <Text style={styles.helpText}>
-                            Need more info? Get help here
-                        </Text>
-                    </View>
-                </View>
-            </SafeAreaView>
-        </LinearGradient>
+                    </Animated.View>
+                </SafeAreaView>
+            </LinearGradient>
+        </Animated.View>
     );
 };
 
@@ -348,6 +367,10 @@ const styles = StyleSheet.create({
         fontSize: 11,
         fontFamily: "Work Sans, sans-serif",
         marginTop: 32,
+    },
+    gradient: {
+        flex: 1,
+        width: "100%",
     },
 });
 
