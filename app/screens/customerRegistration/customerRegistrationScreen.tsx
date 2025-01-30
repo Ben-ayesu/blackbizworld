@@ -74,7 +74,7 @@ const CustomerRegistrationScreen = () => {
         }
 
         setErrors(newErrors);
-        return isValid;
+        return true;
     };
 
     const handleRegister = () => {
@@ -89,12 +89,12 @@ const CustomerRegistrationScreen = () => {
 
     const customTheme = {
         ...theme,
-        roundness: 12,  // Controls border radius for TextInput
+        roundness: 12,
         colors: {
             ...theme.colors,
-            primary: 'rgba(255, 255, 255, 0.7)',  // Placeholder text in white
+            primary: 'rgba(255, 255, 255, 0.7)',
             text: 'rgba(255, 255, 255, 1)',
-            placeholder: 'rgba(255, 255, 255, 1)',  // Ensures input text is white
+            placeholder: 'rgba(255, 255, 255, 1)',
             error: 'rgba(255, 69, 58, 0.9)',
         },
     };

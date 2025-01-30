@@ -1,57 +1,43 @@
-import { View, Text, Image, StyleSheet } from "react-native";
-
-// interface LocationBarProps {}
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 const LocationBar = () => {
     return (
-        <View style={styles.locationContainer}>
+        <View style={styles.container}>
             <View style={styles.locationWrapper}>
                 <Text style={styles.locationText}>Vancouver</Text>
-                <Image
-                    resizeMode="contain"
-                    source={{ uri: "https://cdn.builder.io/api/v1/image/assets/0631d207b9dc4b438681345940ab050f/4fd0695a58d5038e50e76948d6b5648354a6fa7e7350510e13f227f53ea7ce1f?apiKey=0631d207b9dc4b438681345940ab050f&" }}
-                    style={styles.locationIcon}
-                />
+                <Icon name="location-on" size={20} color="#FFFFFF" style={styles.locationIcon} />
             </View>
-            <Image
-                resizeMode="contain"
-                source={{ uri: "https://cdn.builder.io/api/v1/image/assets/0631d207b9dc4b438681345940ab050f/75eef717d4e64c064eaa930f1f86b6a83188f8a912480d67c023f965d6d8093a?apiKey=0631d207b9dc4b438681345940ab050f&" }}
-                style={styles.menuIcon}
-            />
+            <TouchableOpacity>
+                <Icon name="menu" size={24} color="#FFFFFF" style={styles.menuIcon} />
+            </TouchableOpacity>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    locationContainer: {
+    container: {
         display: "flex",
+        marginTop: 40,
         width: "100%",
         alignItems: "center",
         flexDirection: "row",
         justifyContent: "space-between",
     },
     locationWrapper: {
-        alignSelf: "stretch",
-        display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "space-between",
-        width: 101,
     },
     locationText: {
-        fontFamily: "Be Vietnam, sans-serif",
+        color: "#FFFFFF",
         fontSize: 16,
-        color: "rgba(255, 255, 255, 1)",
-        letterSpacing: -0.16,
-        lineHeight: 20,
+        marginRight: 10,
     },
     locationIcon: {
-        width: 20,
-        aspectRatio: 2.5,
+        marginRight: 10,
     },
     menuIcon: {
-        width: 24,
-        aspectRatio: 1,
+        marginLeft: 10,
     },
 });
 

@@ -1,89 +1,75 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
-// interface CategorySectionProps {}
-
-const categories = ["Cooks", "Food", "Drinks", "Clothes"];
+const categories = [
+    { name: "Cooks", icon: "restaurant" },
+    { name: "Food", icon: "fastfood" },
+    { name: "Drinks", icon: "local-bar" },
+    { name: "Clothes", icon: "checkroom" },
+];
 
 const CategorySection = () => {
     return (
-        <>
-            <View style={styles.categoryHeader}>
-                <View style={styles.categoryTitle}>
-                    <Text style={styles.categoryTitleText}>Categories</Text>
-                </View>
-                <View style={styles.seeAllButton}>
-                    <Text style={styles.seeAllButtonText}>See all</Text>
-                </View>
-
+        <View style={styles.container}>
+            <View style={styles.header}>
+                <Text style={styles.title}>Categories</Text>
+                <TouchableOpacity>
+                    <Text style={styles.seeAll}>See all</Text>
+                </TouchableOpacity>
             </View>
-            <View style={styles.categoryContent}>
-                <Image
-                    resizeMode="contain"
-                    source={{ uri: "https://cdn.builder.io/api/v1/image/assets/0631d207b9dc4b438681345940ab050f/f9b9ffbb56079c966c22a578d74ba69acfeb94c96a40651d4fb1b6c0034288d3?apiKey=0631d207b9dc4b438681345940ab050f&" }}
-                    style={styles.categoryImage}
-                />
-                <View style={styles.categoryList}>
-                    {categories.map((category, index) => (
-                        <View key={index} style={styles.categoryItem}>
-                            <Text>{category}</Text>
+            <View style={styles.categoryList}>
+                {categories.map((category, index) => (
+                    <TouchableOpacity key={index} style={styles.categoryItem}>
+                        <View style={styles.iconContainer}>
+                            <Icon name={category.icon} size={30} color="#FFFFFF" />
                         </View>
-                    ))}
-                </View>
+                        <Text style={styles.categoryName}>{category.name}</Text>
+                    </TouchableOpacity>
+                ))}
             </View>
-        </>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
-    categoryHeader: {
-        display: "flex",
-        marginTop: 33,
-        alignItems: "stretch",
-        gap: 40
+    container: {
+        marginTop: 30,
     },
-    categoryTitleText: { // Add this new style for Text component
-        color: "rgba(255, 255, 255, 1)",
-        fontSize: 18,
-        fontFamily: "Product Sans, sans-serif",
-        letterSpacing: -0.36,
+    header: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
     },
-    seeAllButtonText: { // Add this new style for Text component
-        color: "rgba(29, 161, 242, 1)",
-        fontSize: 12,
-        fontFamily: "Work Sans, sans-serif",
+    title: {
+        color: "#FFFFFF",
+        fontSize: 24,
+        fontWeight: "bold",
     },
-    categoryContent: {
-        display: "flex",
-        marginTop: 20,
-        width: "100%",
-        flexDirection: "column",
-        alignItems: "stretch",
-        fontFamily: "Work Sans, sans-serif",
-        fontSize: 13,
-        color: "rgba(255, 255, 255, 1)",
-    },
-    categoryImage: {
-        position: "relative",
-        display: "flex",
-        width: 354,
-        aspectRatio: 4.65,
+    seeAll: {
+        color: "#1DA1F2",
+        fontSize: 16,
     },
     categoryList: {
-        alignSelf: "center",
-        display: "flex",
-        width: 311,
-        maxWidth: "100%",
-        alignItems: "center",
-        gap: "40px 49px",
-        justifyContent: "space-between",
+        flexDirection: "row",
+        gap: 24,
+        marginTop: 20,
     },
     categoryItem: {
-        alignSelf: "stretch",
-        marginTop: "auto",
-        marginBottom: "auto",
+        alignItems: "center",
     },
-    categoryTitle: {},
-    seeAllButton: {},
+    iconContainer: {
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        backgroundColor: "#2E2E2E",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    categoryName: {
+        color: "#FFFFFF",
+        marginTop: 10,
+        fontSize: 14,
+    },
 });
 
 export default CategorySection;

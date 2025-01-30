@@ -1,54 +1,43 @@
-import { View, Text, Image, StyleSheet } from "react-native";
-
-// interface SearchBarProps {}
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 const SearchBar = () => {
     return (
-        <View style={styles.searchContainer}>
-            <Image
-                resizeMode="contain"
-                source={{ uri: "https://cdn.builder.io/api/v1/image/assets/0631d207b9dc4b438681345940ab050f/3b782b8978707fc2fdc88a2ea6055d3dcf60f2633515c4074e3c676a3ec8d902?apiKey=0631d207b9dc4b438681345940ab050f&" }}
-                style={styles.searchIcon}
-            />
+        <View style={styles.container}>
+            <Icon name="search" size={20} color="#FFFFFF" style={styles.searchIcon} />
             <View style={styles.searchInput}>
                 <Text style={styles.searchText}>Search Businesses</Text>
             </View>
+            <TouchableOpacity>
+                <Icon name="qr-code-scanner" size={24} color="#FFFFFF" style={styles.qrIcon} />
+            </TouchableOpacity>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    searchContainer: {
-        borderRadius: 8,
-        borderColor: "rgba(74, 74, 74, 0.32)",
-        borderStyle: "solid",
-        borderWidth: 1,
-        display: "flex",
-        marginTop: 38,
-        minHeight: 44,
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingTop: 8,
-        paddingBottom: 8,
-        alignItems: "stretch",
-        gap: 10,
-        overflow: "hidden",
+    container: {
         flexDirection: "row",
+        alignItems: "center",
+        backgroundColor: "#2E2E2E",
+        borderRadius: 10,
+        paddingHorizontal: 10,
+        paddingVertical: 8,
+        marginTop: 20,
     },
     searchIcon: {
-        alignSelf: "center",
-        width: 18,
-        height: 18,
+        marginRight: 10,
     },
     searchInput: {
         flex: 1,
     },
     searchText: {
-        fontFamily: "Work Sans",
-        fontSize: 10,
-        color: "rgba(255, 255, 255, 0.55)",
-        lineHeight: 16,
-    }
+        color: "#FFFFFF",
+        fontSize: 14,
+    },
+    qrIcon: {
+        marginLeft: 10,
+    },
 });
 
 export default SearchBar;
