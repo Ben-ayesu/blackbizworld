@@ -8,7 +8,7 @@ interface RegistrationData extends UserCredentials {
     // Add other registration fields
 }
 
-export const authService = {
+const authService = {
     login: async (credentials: UserCredentials) => {
         try {
             // Replace with actual API call
@@ -43,3 +43,5 @@ export const authService = {
         }
     }
 }; 
+
+export default authService;

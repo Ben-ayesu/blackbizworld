@@ -6,7 +6,7 @@ interface Business {
     // Add other business properties
 }
 
-export const businessService = {
+const businessService = {
     getBusinesses: async (): Promise<Business[]> => {
         // Implement API call to get businesses
         try {
@@ -30,3 +30,5 @@ export const businessService = {
         }
     }
 }; 
+
+export default businessService;
