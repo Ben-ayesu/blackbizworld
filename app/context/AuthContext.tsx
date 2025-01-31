@@ -1,9 +1,10 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import authService from "../services/auth/authService";
 import { UserCredentials } from "../types/types";
+import { User } from "firebase/auth";
 
 type AuthContextType = {
-  user: any;
+  user: User | null;
   loading: boolean;
   login: (credentials: UserCredentials) => Promise<void>;
   logout: () => Promise<void>;
@@ -12,7 +13,7 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -29,8 +30,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const login = async (credentials: UserCredentials) => {
-    const userData = await authService.login(credentials);
-    setUser(userData);
+    try {
+      const userData = await authService.login(credentials);
+      setUser(userData);
+    } catch (error) {
+      console.error("Login failed:", error);
+      // Handle login error, e.g., show an error message to the user
+      throw error;
+    }
   };
 
   const logout = async () => {

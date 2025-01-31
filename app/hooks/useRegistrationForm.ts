@@ -12,9 +12,10 @@ interface FormErrors {
   email: string;
   password: string;
   confirmPassword: string;
+  form?: string;
 }
 
-export const useRegistrationForm = () => {
+export const useRegistrationForm = (isLogin = false) => {
   const [formData, setFormData] = useState<FormData>({
     fullName: "",
     email: "",
@@ -27,6 +28,7 @@ export const useRegistrationForm = () => {
     email: "",
     password: "",
     confirmPassword: "",
+    form: "",
   });
 
   const [secureTextEntry, setSecureTextEntry] = useState({
@@ -38,9 +40,11 @@ export const useRegistrationForm = () => {
     const newErrors = { ...errors };
     let isValid = true;
 
-    if (!formData.fullName) {
-      newErrors.fullName = "Full name is required";
-      isValid = false;
+    if (!isLogin) {
+      if (!formData.fullName) {
+        newErrors.fullName = "Full name is required";
+        isValid = false;
+      }
     }
 
     if (!formData.email) {
@@ -59,13 +63,15 @@ export const useRegistrationForm = () => {
       isValid = false;
     }
 
-    if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = "Passwords do not match";
-      isValid = false;
+    if (!isLogin) {
+      if (formData.password !== formData.confirmPassword) {
+        newErrors.confirmPassword = "Passwords do not match";
+        isValid = false;
+      }
     }
 
     setErrors(newErrors);
-    return true;
+    return isValid;
   };
 
   return {

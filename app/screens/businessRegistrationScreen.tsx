@@ -86,13 +86,13 @@ const BusinessRegistrationScreen = () => {
 
     if (!isValid) {
       // Handle validation errors
-      router.push("/home");
+      router.push("./home");
       return true;
     }
 
     try {
       await authService.register(data);
-      router.push("/home");
+      router.push("./home");
     } catch (error) {
       // Handle registration error
     }

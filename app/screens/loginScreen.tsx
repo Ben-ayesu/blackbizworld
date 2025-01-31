@@ -5,13 +5,11 @@ import { router } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { CustomInput } from "../components/registration/CustomInput";
-import { SocialLoginSection } from "../components/registration/SocialLoginSection";
-import { useRegistrationForm } from "../hooks/useRegistrationForm";
 import { styles } from "../styles/registration.styles";
 import { useAuth } from "../context/AuthContext";
-import authService from "../services/auth/authService";
+import { useRegistrationForm } from "../hooks/useRegistrationForm";
 
-const CustomerRegistrationScreen = () => {
+const LoginScreen = () => {
   const {
     formData,
     setFormData,
@@ -20,30 +18,25 @@ const CustomerRegistrationScreen = () => {
     secureTextEntry,
     setSecureTextEntry,
     validateForm,
-  } = useRegistrationForm();
+  } = useRegistrationForm(true);
 
-  const { login, user } = useAuth();
+  const { login } = useAuth();
   const screenHeight = Dimensions.get("window").height;
 
-  const handleRegister = async () => {
+  const handleLogin = async () => {
     if (validateForm()) {
       try {
-        await authService.register({
-          email: formData.email,
-          password: formData.password,
-          userType: "customer",
-        });
         await login({ email: formData.email, password: formData.password });
-        router.push("./home");
+        router.push("/home");
       } catch (error: any) {
-        console.error("Registration failed:", error);
-        setErrors({ ...errors, email: error.message });
+        console.error("Login failed:", error);
+        setErrors({ ...errors, form: error.message });
       }
     }
   };
 
-  const handleLoginRedirect = () => {
-    router.push("/login");
+  const handleRegisterRedirect = () => {
+    router.push("./customerRegistration");
   };
 
   return (
@@ -55,26 +48,16 @@ const CustomerRegistrationScreen = () => {
       >
         <SafeAreaView style={[styles.safeArea, { minHeight: screenHeight }]}>
           <Animated.View entering={FadeIn.duration(300)} style={styles.content}>
-            <Text style={styles.title}>Start by setting up your account!</Text>
+            <Text style={styles.title}>Welcome Back!</Text>
 
             <Text style={styles.subtitle}>
-              Fill your information below or register with your social account
+              Log in with your email and password
             </Text>
 
             <Animated.View
               entering={FadeIn.duration(400)}
               style={styles.formContainer}
             >
-              <CustomInput
-                label="Full Name"
-                value={formData.fullName}
-                onChangeText={(text) => {
-                  setFormData({ ...formData, fullName: text });
-                  if (errors.fullName) setErrors({ ...errors, fullName: "" });
-                }}
-                error={errors.fullName}
-              />
-
               <CustomInput
                 label="Email"
                 value={formData.email}
@@ -103,42 +86,22 @@ const CustomerRegistrationScreen = () => {
                   })
                 }
               />
-
-              <CustomInput
-                label="Confirm Password"
-                value={formData.confirmPassword}
-                onChangeText={(text) => {
-                  setFormData({ ...formData, confirmPassword: text });
-                  if (errors.confirmPassword)
-                    setErrors({ ...errors, confirmPassword: "" });
-                }}
-                error={errors.confirmPassword}
-                secureTextEntry={secureTextEntry.confirmPassword}
-                onToggleSecureEntry={() =>
-                  setSecureTextEntry({
-                    ...secureTextEntry,
-                    confirmPassword: !secureTextEntry.confirmPassword,
-                  })
-                }
-              />
             </Animated.View>
 
             <View style={styles.actionContainer}>
               <TouchableOpacity
                 style={styles.registerButton}
-                onPress={handleRegister}
+                onPress={handleLogin}
               >
-                <Text style={styles.registerButtonText}>Create Account</Text>
+                <Text style={styles.registerButtonText}>Log In</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity onPress={handleLoginRedirect}>
+              <TouchableOpacity onPress={handleRegisterRedirect}>
                 <Text style={styles.loginText}>
-                  Already have an account? Log in here
+                  Don't have an account? Register here
                 </Text>
               </TouchableOpacity>
             </View>
-
-            <SocialLoginSection />
           </Animated.View>
         </SafeAreaView>
       </LinearGradient>
@@ -146,4 +109,4 @@ const CustomerRegistrationScreen = () => {
   );
 };
 
-export default CustomerRegistrationScreen;
+export default LoginScreen;

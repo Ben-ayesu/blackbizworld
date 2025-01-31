@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import SelectionCard from "@/app/components/userType/SelectionCard";
 import { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";

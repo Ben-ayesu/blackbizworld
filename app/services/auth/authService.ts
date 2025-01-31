@@ -1,4 +1,11 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { auth } from '../../firebase/firebase';
+import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut,
+    User,
+    onAuthStateChanged
+} from 'firebase/auth';
 
 interface UserCredentials {
     email: string;
@@ -7,63 +14,44 @@ interface UserCredentials {
 
 interface RegistrationData extends UserCredentials {
     userType: 'business' | 'customer';
-    // Add other registration fields
+    // Add other registration fields if needed
 }
 
-const mockUser = {
-    email: "test@example.com",
-    password: "password123",
-};
-
 const authService = {
-    login: async (credentials: { email: string; password: string }) => {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                if (
-                    credentials.email === mockUser.email &&
-                    credentials.password === mockUser.password
-                ) {
-                    resolve(mockUser);
-                } else {
-                    reject(new Error("Invalid credentials"));
-                }
-            }, 1000); // Simulate network delay
-        });
+    login: async (credentials: UserCredentials) => {
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, credentials.email, credentials.password);
+            return userCredential.user;
+        } catch (error: any) {
+            throw new Error(error.message || "Login failed");
+        }
     },
 
     register: async (data: RegistrationData) => {
         try {
-            const response = await fetch('YOUR_API_ENDPOINT/auth/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-
-            const responseData = await response.json();
-            if (response.ok) {
-                await AsyncStorage.setItem('authToken', responseData.token);
-                return responseData;
-            }
-            throw new Error(responseData.message || 'Registration failed');
-        } catch (error) {
+            const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
+            return userCredential.user;
+        } catch (error: any) {
             console.error('Registration error:', error);
-            throw error;
+            throw new Error(error.message || 'Registration failed');
         }
     },
 
     logout: async () => {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve(true);
-            }, 500); // Simulate network delay
-        });
+        try {
+            await signOut(auth);
+        } catch (error: any) {
+            console.error('Logout error:', error);
+            throw new Error(error.message || 'Logout failed');
+        }
     },
 
-    getCurrentUser: async () => {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve(mockUser); // Simulate getting the current user
-            }, 500); // Simulate network delay
+    getCurrentUser: (): Promise<User | null> => {
+        return new Promise((resolve, reject) => {
+            const unsubscribe = onAuthStateChanged(auth, (user) => {
+                unsubscribe();
+                resolve(user);
+            }, reject);
         });
     }
 };
