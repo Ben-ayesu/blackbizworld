@@ -1,20 +1,27 @@
 import axios from 'axios';
 
 // Define a base URL for your API
-const API_BASE_URL = 'http://localhost:3001/api';
+const API_BASE_URL = 'http://192.168.1.136:3001/api';
 
 interface Business {
     id: string;
     name: string;
     category: string;
     location: string;
+    features: string[];
+    coordinates: {
+        latitude: number;
+        longitude: number;
+    };
     // Add other business properties
 }
 
 const businessService = {
     getBusinesses: async (): Promise<Business[]> => {
         try {
+            console.log('Fetching businesses...');
             const response = await axios.get<Business[]>(`${API_BASE_URL}/businesses`);
+            console.log('Data fetched:', response.data);
             return response.data;
         } catch (error: any) {
             console.error('Error fetching businesses:', error);
