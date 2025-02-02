@@ -34,6 +34,10 @@ const BusinessRegistrationScreen = () => {
   const [isFocus, setIsFocus] = useState(false);
   const employeeDropdownHeight = useSharedValue(0);
   const provinceDropdownHeight = useSharedValue(0);
+  const [registrationError, setRegistrationError] = useState<string | null>(
+    null
+  );
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const router = useRouter();
 
@@ -86,6 +90,7 @@ const BusinessRegistrationScreen = () => {
 
     if (!isValid) {
       // Handle validation errors
+      setRegistrationError("Please fill in all required fields correctly.");
       router.push("./home");
       return true;
     }
@@ -94,7 +99,7 @@ const BusinessRegistrationScreen = () => {
       await authService.register(data);
       router.push("./home");
     } catch (error) {
-      // Handle registration error
+      setRegistrationError("Registration failed. Please try again.");
     }
   };
 
@@ -255,6 +260,12 @@ const BusinessRegistrationScreen = () => {
           entering={FadeInUp.duration(400).delay(400)}
           style={styles.bottomContainer}
         >
+          {registrationError && (
+            <Text style={styles.errorText}>{registrationError}</Text>
+          )}
+          {successMessage && (
+            <Text style={styles.successText}>{successMessage}</Text>
+          )}
           <TouchableOpacity style={styles.button} onPress={handleRegister}>
             <Text style={styles.buttonText}>Register your business</Text>
           </TouchableOpacity>
@@ -409,6 +420,18 @@ const styles = StyleSheet.create({
   },
   dropdownItemContainer: {
     backgroundColor: "#333",
+  },
+  errorText: {
+    color: "#FF4444",
+    fontSize: 16,
+    textAlign: "center",
+    marginBottom: 10,
+  },
+  successText: {
+    color: "#28A745",
+    fontSize: 16,
+    textAlign: "center",
+    marginBottom: 10,
   },
 });
 

@@ -30,7 +30,13 @@ const HomeScreen = () => {
       setBusinesses(data);
     } catch (err: any) {
       console.error("Error fetching businesses:", err);
-      setError(err.message || "Failed to fetch businesses");
+      if (err.response) {
+        // Server responded with a status other than 200
+        setError("Failed to fetch businesses. Please check your connection.");
+      } else {
+        // Network error or other issues
+        setError("An unexpected error occurred. Please try again later.");
+      }
     } finally {
       setLoading(false);
     }
