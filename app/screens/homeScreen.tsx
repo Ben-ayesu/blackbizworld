@@ -69,15 +69,8 @@ const HomeScreen = () => {
   }
 
   return (
-    <Animated.ScrollView
-      entering={FadeIn.duration(600)}
-      style={styles.container}
-      showsVerticalScrollIndicator={false}
-    >
-      <Animated.View
-        entering={FadeInUp.duration(800).delay(100)}
-        style={styles.mainContent}
-      >
+    <View style={styles.container}>
+      <View style={styles.header}>
         <LocationBar />
         <SearchBar />
         <CategorySection
@@ -85,12 +78,12 @@ const HomeScreen = () => {
           selectedCategory={selectedCategory}
           onCategorySelect={setSelectedCategory}
         />
-        <BusinessList
-          businesses={businesses}
-          selectedCategory={selectedCategory}
-        />
-      </Animated.View>
-    </Animated.ScrollView>
+      </View>
+      <BusinessList
+        businesses={businesses}
+        selectedCategory={selectedCategory}
+      />
+    </View>
   );
 };
 
@@ -99,10 +92,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#1A1A1A",
   },
-  mainContent: {
-    flex: 1,
-    marginTop: 40,
+  header: {
     paddingHorizontal: 15,
+    paddingTop: 40,
+    backgroundColor: "#1A1A1A",
   },
   loadingContainer: {
     flex: 1,

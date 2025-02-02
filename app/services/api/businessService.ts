@@ -1,20 +1,8 @@
 import axios from 'axios';
+import { Business } from '@/app/types/types';
 
 // Define a base URL for your API
 const API_BASE_URL = 'http://192.168.1.136:3001/api';
-
-interface Business {
-    id: string;
-    name: string;
-    category: string;
-    location: string;
-    features: string[];
-    coordinates: {
-        latitude: number;
-        longitude: number;
-    };
-    // Add other business properties
-}
 
 const businessService = {
     getBusinesses: async (): Promise<Business[]> => {
