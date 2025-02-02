@@ -1,4 +1,10 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  FlatList,
+} from "react-native";
 import { Business } from "../../types/types";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import Animated, { FadeInDown } from "react-native-reanimated";
@@ -34,47 +40,72 @@ const BusinessList = ({ businesses, selectedCategory }: BusinessListProps) => {
     );
   }
 
+  const renderBusinessCard = ({
+    item: business,
+    index,
+  }: {
+    item: Business;
+    index: number;
+  }) => (
+    <Animated.View
+      entering={FadeInDown.delay(index * 100).duration(400)}
+      style={styles.businessItem}
+    >
+      <TouchableOpacity>
+        <View style={styles.businessHeader}>
+          <View style={styles.businessInfo}>
+            <Text style={styles.businessName}>{business.name}</Text>
+            <View style={styles.ratingContainer}>
+              <Icon name="star" size={16} color="#FFD700" />
+              <Text style={styles.rating}>{business.rating}</Text>
+              <Text style={styles.reviews}>({business.reviews} reviews)</Text>
+            </View>
+          </View>
+          <View style={styles.categoryTag}>
+            <Icon
+              name={getCategoryIcon(business.category)}
+              size={16}
+              color="#1DA1F2"
+            />
+            <Text style={styles.businessCategory}>{business.category}</Text>
+          </View>
+        </View>
+
+        <Text style={styles.description}>{business.description}</Text>
+
+        <View style={styles.locationContainer}>
+          <Icon name="location-on" size={16} color="#B0B0B0" />
+          <Text style={styles.businessLocation}>{business.location}</Text>
+        </View>
+
+        <View style={styles.featuresContainer}>
+          {business.features.map((feature, idx) => (
+            <View key={idx} style={styles.featureTag}>
+              <Icon name="check-circle" size={14} color="#1DA1F2" />
+              <Text style={styles.featureText}>{feature}</Text>
+            </View>
+          ))}
+        </View>
+      </TouchableOpacity>
+    </Animated.View>
+  );
+
   return (
-    <View style={styles.container}>
-      {filteredBusinesses.map((business, index) => (
-        <Animated.View
-          entering={FadeInDown.delay(index * 100).duration(400)}
-          key={business.id}
-        >
-          <TouchableOpacity style={styles.businessItem}>
-            <View style={styles.businessHeader}>
-              <View style={styles.businessInfo}>
-                <Text style={styles.businessName}>{business.name}</Text>
-                <View style={styles.categoryTag}>
-                  <Icon
-                    name={getCategoryIcon(business.category)}
-                    size={16}
-                    color="#1DA1F2"
-                  />
-                  <Text style={styles.businessCategory}>
-                    {business.category}
-                  </Text>
-                </View>
-              </View>
-              <Icon name="chevron-right" size={24} color="#B0B0B0" />
-            </View>
-            <View style={styles.locationContainer}>
-              <Icon name="location-on" size={16} color="#B0B0B0" />
-              <Text style={styles.businessLocation}>{business.location}</Text>
-            </View>
-            {business.features && (
-              <View style={styles.featuresContainer}>
-                {business.features.map((feature, idx) => (
-                  <View key={idx} style={styles.featureTag}>
-                    <Text style={styles.featureText}>{feature}</Text>
-                  </View>
-                ))}
-              </View>
-            )}
-          </TouchableOpacity>
-        </Animated.View>
-      ))}
-    </View>
+    <FlatList
+      data={filteredBusinesses}
+      renderItem={renderBusinessCard}
+      keyExtractor={(item) => item.id}
+      contentContainerStyle={styles.container}
+      showsVerticalScrollIndicator={false}
+      ListEmptyComponent={
+        <View style={styles.emptyContainer}>
+          <Icon name="search-off" size={50} color="#4A4A4A" />
+          <Text style={styles.emptyText}>
+            No businesses found in this category
+          </Text>
+        </View>
+      }
+    />
   );
 };
 
@@ -95,8 +126,7 @@ const getCategoryIcon = (category: string): string => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
-    marginBottom: 20,
+    padding: 15,
   },
   businessItem: {
     backgroundColor: "#2E2E2E",
@@ -115,16 +145,33 @@ const styles = StyleSheet.create({
   businessHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
+    alignItems: "flex-start",
+    marginBottom: 12,
   },
   businessInfo: {
     flex: 1,
+    marginRight: 12,
   },
   businessName: {
     fontSize: 18,
     fontWeight: "bold",
     color: "#FFFFFF",
     marginBottom: 4,
+  },
+  ratingContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 4,
+  },
+  rating: {
+    color: "#FFFFFF",
+    marginLeft: 4,
+    fontWeight: "bold",
+  },
+  reviews: {
+    color: "#B0B0B0",
+    marginLeft: 4,
+    fontSize: 12,
   },
   categoryTag: {
     flexDirection: "row",
@@ -133,17 +180,22 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 12,
-    alignSelf: "flex-start",
   },
   businessCategory: {
     fontSize: 14,
     color: "#1DA1F2",
     marginLeft: 4,
   },
+  description: {
+    color: "#FFFFFF",
+    fontSize: 14,
+    marginBottom: 12,
+    lineHeight: 20,
+  },
   locationContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 12,
+    marginBottom: 12,
   },
   businessLocation: {
     fontSize: 14,
@@ -154,17 +206,20 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     gap: 8,
-    marginTop: 12,
+    marginTop: 8,
   },
   featureTag: {
-    backgroundColor: "#3E3E3E",
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "rgba(29, 161, 242, 0.05)",
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 8,
+    gap: 4,
   },
   featureText: {
     fontSize: 12,
-    color: "#B0B0B0",
+    color: "#1DA1F2",
   },
   emptyContainer: {
     alignItems: "center",
@@ -175,6 +230,7 @@ const styles = StyleSheet.create({
   emptyText: {
     color: "#4A4A4A",
     fontSize: 16,
+    textAlign: "center",
   },
 });
 
