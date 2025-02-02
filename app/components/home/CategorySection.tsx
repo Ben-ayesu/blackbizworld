@@ -4,10 +4,12 @@ import {
   StyleSheet,
   TouchableOpacity,
   Animated,
+  ScrollView,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { Business } from "@/app/types/types";
 import { useState, useRef } from "react";
+import { useAnimatedStyle, withSpring } from "react-native-reanimated";
 
 const categories = [
   { name: "All", icon: "apps" },
@@ -27,21 +29,33 @@ const categories = [
 
 interface CategorySectionProps {
   businesses: Business[] | null;
-  onCategorySelect: (category: string) => void;
   selectedCategory: string;
+  onCategorySelect: (category: string) => void;
 }
 
 const CategorySection = ({
   selectedCategory,
   onCategorySelect,
 }: CategorySectionProps) => {
-  const animatedValue = useRef(new Animated.Value(0)).current;
+  const scrollViewRef = useRef<ScrollView>(null);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const animate = (index: number) => {
-    Animated.spring(animatedValue, {
-      toValue: index * 84,
-      useNativeDriver: true,
-    }).start();
+  const indicatorStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          translateX: withSpring(selectedIndex * 84, {
+            damping: 15,
+            stiffness: 150,
+          }),
+        },
+      ],
+    };
+  });
+
+  const handleCategorySelect = (category: string, index: number) => {
+    setSelectedIndex(index);
+    onCategorySelect(category);
   };
 
   return (
@@ -52,16 +66,14 @@ const CategorySection = ({
           <Text style={styles.seeAll}>See all</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.categoryListContainer}>
-        <Animated.View
-          style={[
-            styles.selectionIndicator,
-            {
-              transform: [{ translateX: animatedValue }],
-            },
-          ]}
-        />
-        <View style={styles.categoryList}>
+      <View>
+        <Animated.View style={[styles.selectionIndicator, indicatorStyle]} />
+        <ScrollView
+          ref={scrollViewRef}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.scrollContent}
+        >
           {categories.map((category, index) => (
             <TouchableOpacity
               key={index}
@@ -69,10 +81,7 @@ const CategorySection = ({
                 styles.categoryItem,
                 selectedCategory === category.name && styles.selectedCategory,
               ]}
-              onPress={() => {
-                onCategorySelect(category.name);
-                animate(index);
-              }}
+              onPress={() => handleCategorySelect(category.name, index)}
             >
               <View
                 style={[
@@ -100,7 +109,7 @@ const CategorySection = ({
               </Text>
             </TouchableOpacity>
           ))}
-        </View>
+        </ScrollView>
       </View>
     </View>
   );
@@ -115,6 +124,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 20,
+    paddingHorizontal: 15,
   },
   title: {
     color: "#FFFFFF",
@@ -125,8 +135,8 @@ const styles = StyleSheet.create({
     color: "#1DA1F2",
     fontSize: 16,
   },
-  categoryListContainer: {
-    position: "relative",
+  scrollContent: {
+    paddingHorizontal: 15,
   },
   selectionIndicator: {
     position: "absolute",
@@ -135,14 +145,13 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     backgroundColor: "rgba(29, 161, 242, 0.1)",
     zIndex: 0,
-  },
-  categoryList: {
-    flexDirection: "row",
-    gap: 24,
+    left: 15,
+    top: 0,
   },
   categoryItem: {
     alignItems: "center",
-    zIndex: 1,
+    marginRight: 24,
+    width: 60,
   },
   iconContainer: {
     width: 60,
@@ -162,6 +171,7 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     marginTop: 10,
     fontSize: 14,
+    textAlign: "center",
   },
   selectedCategory: {
     transform: [{ scale: 1.05 }],
