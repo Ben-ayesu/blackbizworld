@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Define a base URL for your API
-const API_BASE_URL = 'YOUR_ACTUAL_API_BASE_URL';
+const API_BASE_URL = 'http://localhost:3001/api';
 
 interface Business {
     id: string;

@@ -35,8 +35,6 @@ const SignupCard = ({
   );
 };
 
-export default SignupCard;
-
 const styles = StyleSheet.create({
   container: {
     width: "100%",
@@ -87,3 +85,5 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
 });
+
+export default SignupCard;

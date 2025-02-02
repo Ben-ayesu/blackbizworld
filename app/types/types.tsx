@@ -42,7 +42,6 @@ export interface OnboardingScreenProps {
   buttonText: string;
 }
 
-// Define the UserCredentials type if it doesn't exist
 export type UserCredentials = {
   email: string;
   password: string;
@@ -54,4 +53,20 @@ export interface FormErrors {
   password?: string;
   confirmPassword?: string;
   form?: string;
-} 
+}
+
+export interface Business {
+  id: string;
+  name: string;
+  category: string;
+  location: string;
+  description?: string;
+  rating?: number;
+  reviews?: number;
+  imageUrl?: string;
+  features: string[];
+  coordinates: {
+    latitude: number;
+    longitude: number;
+  };
+}
