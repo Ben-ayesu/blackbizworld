@@ -1,13 +1,7 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  FlatList,
-} from "react-native";
+import { View, Text, StyleSheet, FlatList } from "react-native";
 import { Business } from "../../types/types";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import Animated, { FadeInDown } from "react-native-reanimated";
+import BusinessCard from "./BusinessCard";
 
 interface BusinessListProps {
   businesses: Business[] | null;
@@ -46,49 +40,7 @@ const BusinessList = ({ businesses, selectedCategory }: BusinessListProps) => {
   }: {
     item: Business;
     index: number;
-  }) => (
-    <Animated.View
-      entering={FadeInDown.delay(index * 100).duration(400)}
-      style={styles.businessItem}
-    >
-      <TouchableOpacity>
-        <View style={styles.businessHeader}>
-          <View style={styles.businessInfo}>
-            <Text style={styles.businessName}>{business.name}</Text>
-            <View style={styles.ratingContainer}>
-              <Icon name="star" size={16} color="#FFD700" />
-              <Text style={styles.rating}>{business.rating}</Text>
-              <Text style={styles.reviews}>({business.reviews} reviews)</Text>
-            </View>
-          </View>
-          <View style={styles.categoryTag}>
-            <Icon
-              name={getCategoryIcon(business.category)}
-              size={16}
-              color="#1DA1F2"
-            />
-            <Text style={styles.businessCategory}>{business.category}</Text>
-          </View>
-        </View>
-
-        <Text style={styles.description}>{business.description}</Text>
-
-        <View style={styles.locationContainer}>
-          <Icon name="location-on" size={16} color="#B0B0B0" />
-          <Text style={styles.businessLocation}>{business.location}</Text>
-        </View>
-
-        <View style={styles.featuresContainer}>
-          {business.features.map((feature, idx) => (
-            <View key={idx} style={styles.featureTag}>
-              <Icon name="check-circle" size={14} color="#1DA1F2" />
-              <Text style={styles.featureText}>{feature}</Text>
-            </View>
-          ))}
-        </View>
-      </TouchableOpacity>
-    </Animated.View>
-  );
+  }) => <BusinessCard business={business} index={index} />;
 
   return (
     <FlatList
@@ -107,21 +59,6 @@ const BusinessList = ({ businesses, selectedCategory }: BusinessListProps) => {
       }
     />
   );
-};
-
-const getCategoryIcon = (category: string): string => {
-  switch (category) {
-    case "Cooks":
-      return "restaurant";
-    case "Food":
-      return "fastfood";
-    case "Drinks":
-      return "local-bar";
-    case "Clothes":
-      return "checkroom";
-    default:
-      return "store";
-  }
 };
 
 const styles = StyleSheet.create({
