@@ -10,22 +10,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import { Business } from "@/app/types/types";
 import { useState, useRef } from "react";
 import { useAnimatedStyle, withSpring } from "react-native-reanimated";
-
-const categories = [
-  { name: "All", icon: "apps" },
-  { name: "Food", icon: "restaurant" },
-  { name: "Coffee Shop", icon: "coffee" },
-  { name: "Clothes", icon: "checkroom" },
-  { name: "IT Services", icon: "computer" },
-  { name: "Beauty & Wellness", icon: "spa" },
-  { name: "Bakery", icon: "cake" },
-  { name: "Outdoor Gear", icon: "hiking" },
-  { name: "Bookstore", icon: "menu-book" },
-  { name: "Pet Supplies", icon: "pets" },
-  { name: "Home Furnishings", icon: "chair" },
-  { name: "Gardening", icon: "grass" },
-  { name: "Entertainment", icon: "sports-esports" },
-];
+import { CATEGORIES } from "@/app/data/categories";
 
 interface CategorySectionProps {
   businesses: Business[] | null;
@@ -74,7 +59,7 @@ const CategorySection = ({
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.scrollContent}
         >
-          {categories.map((category, index) => (
+          {CATEGORIES.map((category, index) => (
             <TouchableOpacity
               key={index}
               style={[
