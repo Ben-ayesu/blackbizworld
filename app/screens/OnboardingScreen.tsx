@@ -1,29 +1,10 @@
-import {
-  Dimensions,
-  Image,
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  Text,
-} from "react-native";
+import { Dimensions, Image, StyleSheet, View } from "react-native";
 import { useRouter } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import { OnboardingScreenProps } from "@/app/types/types";
 import SignupCard from "@/app/components/onboarding/SignupCard";
-import Animated, {
-  FadeIn,
-  FadeOut,
-  SlideInRight,
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-  Easing,
-} from "react-native-reanimated";
-import {
-  GestureHandlerRootView,
-  PanGestureHandler,
-  State,
-} from "react-native-gesture-handler";
+import Animated from "react-native-reanimated";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -37,7 +18,6 @@ const OnboardingScreen = ({
   buttonText,
 }: OnboardingScreenProps) => {
   const router = useRouter();
-  const translateX = useSharedValue(0);
 
   const handleNext = () => {
     if (step < 2) {
@@ -51,42 +31,15 @@ const OnboardingScreen = ({
     router.push("/(auth)/userType");
   };
 
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [
-        {
-          translateX: withTiming(translateX.value, {
-            duration: 300,
-            easing: Easing.bezier(0.25, 0.1, 0.25, 1),
-          }),
-        },
-      ],
-    };
-  });
-
   return (
     <GestureHandlerRootView style={styles.container}>
-      <Animated.View
-        entering={FadeIn.duration(400)}
-        exiting={FadeOut.duration(400)}
-        style={styles.container}
-      >
+      <Animated.View style={styles.container}>
         <LinearGradient
           colors={["#4D2F0F", "black"]}
           locations={[0, 0.65]}
           style={styles.gradient}
         >
-          {/* Add Skip Button */}
-          {step < 2 && (
-            <TouchableOpacity style={styles.skipButton} onPress={handleSkip}>
-              <Text style={styles.skipButtonText}>Skip</Text>
-            </TouchableOpacity>
-          )}
-
-          <Animated.View
-            entering={SlideInRight.duration(400).delay(200)}
-            style={[styles.content, animatedStyle]}
-          >
+          <Animated.View style={[styles.content]}>
             <View style={styles.topSection}>
               {showLogo && (
                 <Image
@@ -110,6 +63,7 @@ const OnboardingScreen = ({
                 buttonText={buttonText}
                 currentStep={step}
                 onPress={handleNext}
+                onSkip={handleSkip}
               />
             </View>
           </Animated.View>

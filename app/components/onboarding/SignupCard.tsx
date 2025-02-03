@@ -1,7 +1,7 @@
-import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {LinearGradient} from "expo-linear-gradient";
-import {SignupCardProps} from "@/app/types/types";
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import { SignupCardProps } from "@/app/types/types";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import ProgressDots from "@/app/components/onboarding/ProgressDots";
 
 const SignupCard = ({
@@ -10,6 +10,7 @@ const SignupCard = ({
   buttonText,
   currentStep,
   onPress,
+  onSkip
 }: SignupCardProps) => {
   return (
     <LinearGradient
@@ -29,6 +30,9 @@ const SignupCard = ({
         </TouchableOpacity>
         <View style={styles.progressContainer}>
           <ProgressDots activeDot={currentStep} />
+          <TouchableOpacity onPress={onSkip} style={styles.skipButton}>
+            <Text style={styles.skipButtonText}>Skip</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </LinearGradient>
@@ -83,6 +87,14 @@ const styles = StyleSheet.create({
   },
   progressContainer: {
     marginTop: 8,
+  },
+  skipButton: {
+    marginTop: 8,
+  },
+  skipButtonText: {
+    color: "rgba(255,255,255,0.7)",
+    fontSize: 16,
+    textDecorationLine: "underline",
   },
 });
 

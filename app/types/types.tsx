@@ -24,6 +24,7 @@ export interface SignupCardProps {
   buttonText: string;
   currentStep: number;
   onPress: () => void;
+  onSkip: () => void;
 }
 
 export interface SelectionCardProps {
