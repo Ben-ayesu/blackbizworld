@@ -120,9 +120,7 @@ const styles = StyleSheet.create({
     color: "#1DA1F2",
     fontSize: 16,
   },
-  scrollContent: {
-    paddingHorizontal: 15,
-  },
+  scrollContent: {},
   selectionIndicator: {
     position: "absolute",
     width: 60,
@@ -130,7 +128,6 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     backgroundColor: "rgba(29, 161, 242, 0.1)",
     zIndex: 0,
-    left: 15,
     top: 0,
   },
   categoryItem: {
