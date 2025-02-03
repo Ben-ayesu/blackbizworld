@@ -69,7 +69,6 @@ const getCategoryIcon = (category: string): string => {
     }
   };
 
-// Move relevant styles to the new component
 const styles = StyleSheet.create({
     businessItem: {
         backgroundColor: "#2E2E2E",
