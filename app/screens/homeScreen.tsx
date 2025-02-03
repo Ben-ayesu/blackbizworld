@@ -13,6 +13,7 @@ import BusinessList from "../components/home/BusinessList";
 import { useState, useEffect } from "react";
 import businessService from "../services/api/businessService";
 import { Business } from "../types/types";
+import PlacesNearMe from "../components/home/PlacesNearMe";
 
 const HomeScreen = () => {
   const [businesses, setBusinesses] = useState<Business[] | null>(null);
@@ -78,6 +79,7 @@ const HomeScreen = () => {
       <View style={styles.header}>
         <LocationBar />
         <SearchBar />
+        <PlacesNearMe />
         <CategorySection
           businesses={businesses}
           selectedCategory={selectedCategory}
