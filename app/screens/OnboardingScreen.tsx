@@ -1,14 +1,13 @@
-import {Dimensions, Image, StyleSheet, View} from "react-native";
-import {useRouter} from "expo-router";
-import {LinearGradient} from "expo-linear-gradient";
-import {OnboardingScreenProps} from "@/app/types/types";
+import { Dimensions, Image, StyleSheet, View } from "react-native";
+import { useRouter } from "expo-router";
+import { LinearGradient } from "expo-linear-gradient";
+import { OnboardingScreenProps } from "@/app/types/types";
 import SignupCard from "@/app/components/onboarding/SignupCard";
-import Animated, { 
+import Animated, {
   FadeIn,
   FadeOut,
   SlideInRight,
-  SlideOutLeft 
-} from 'react-native-reanimated';
+} from "react-native-reanimated";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -32,8 +31,8 @@ const OnboardingScreen = ({
   };
 
   return (
-    <Animated.View 
-      entering={FadeIn.duration(400)} 
+    <Animated.View
+      entering={FadeIn.duration(400)}
       exiting={FadeOut.duration(400)}
       style={styles.container}
     >
@@ -42,8 +41,8 @@ const OnboardingScreen = ({
         locations={[0, 0.65]}
         style={styles.gradient}
       >
-        <Animated.View 
-          entering={SlideInRight.duration(400).delay(200)} 
+        <Animated.View
+          entering={SlideInRight.duration(400).delay(200)}
           style={styles.content}
         >
           <View style={styles.topSection}>

@@ -10,7 +10,6 @@ import LocationBar from "../components/home/LocationBar";
 import SearchBar from "../components/home/SearchBar";
 import CategorySection from "../components/home/CategorySection";
 import BusinessList from "../components/home/BusinessList";
-import Animated, { FadeIn, FadeInUp } from "react-native-reanimated";
 import { useState, useEffect } from "react";
 import businessService from "../services/api/businessService";
 import { Business } from "../types/types";
