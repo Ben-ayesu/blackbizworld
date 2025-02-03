@@ -4,16 +4,20 @@ import {
   ActivityIndicator,
   Text,
   TouchableOpacity,
+  ScrollView,
+  Dimensions,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import LocationBar from "../components/home/LocationBar";
 import SearchBar from "../components/home/SearchBar";
-import CategorySection from "../components/home/CategorySection";
+import NowTrending from "../components/home/NowTrending";
 import BusinessList from "../components/home/BusinessList";
+import Promotions from "../components/home/Promotions";
 import { useState, useEffect } from "react";
 import businessService from "../services/api/businessService";
 import { Business } from "../types/types";
 import PlacesNearMe from "../components/home/PlacesNearMe";
+import { LinearGradient } from "expo-linear-gradient";
 
 const HomeScreen = () => {
   const [businesses, setBusinesses] = useState<Business[] | null>(null);
@@ -76,20 +80,38 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <LocationBar />
-        <SearchBar />
-        <PlacesNearMe />
-        <CategorySection
-          businesses={businesses}
-          selectedCategory={selectedCategory}
-          onCategorySelect={setSelectedCategory}
-        />
-      </View>
-      <BusinessList
-        businesses={businesses}
-        selectedCategory={selectedCategory}
-      />
+      <LinearGradient
+        colors={["#4D2F0F", "black"]}
+        locations={[0, 0.65]}
+        style={styles.gradient}
+      >
+        <View style={styles.header}>
+          <LocationBar />
+          <SearchBar />
+        </View>
+
+        <ScrollView
+          style={styles.scrollContainer}
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.topContent}>
+            <PlacesNearMe />
+            <NowTrending
+              businesses={businesses}
+              selectedCategory={selectedCategory}
+              onCategorySelect={setSelectedCategory}
+            />
+          </View>
+
+          <View style={styles.businessListContainer}>
+            <BusinessList
+              businesses={businesses}
+              selectedCategory={selectedCategory}
+            />
+            <Promotions />
+          </View>
+        </ScrollView>
+      </LinearGradient>
     </View>
   );
 };
@@ -97,12 +119,23 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#1A1A1A",
+  },
+  gradient: {
+    flex: 1,
+    width: "100%",
   },
   header: {
+    padding: 15,
+  },
+  scrollContainer: {
+    flex: 1,
+    marginBottom: 25,
+  },
+  topContent: {
     paddingHorizontal: 15,
-    paddingTop: 40,
-    backgroundColor: "#1A1A1A",
+  },
+  businessListContainer: {
+    minHeight: Dimensions.get("window").height * 0.5,
   },
   loadingContainer: {
     flex: 1,

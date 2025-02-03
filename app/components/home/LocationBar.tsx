@@ -8,10 +8,10 @@ const LocationBar = () => {
         <Icon
           name="location-on"
           size={20}
-          color="#FFFFFF"
+          color="#D5AF92"
           style={styles.locationIcon}
         />
-        <Text style={styles.locationText}>Vancouver</Text>
+        <Text style={styles.locationText}>Vancouver, BC</Text>
       </View>
       <View style={styles.iconsContainer}>
         <Image
@@ -19,7 +19,7 @@ const LocationBar = () => {
           style={styles.profileImage}
         />
         <TouchableOpacity style={styles.notificationIcon}>
-          <Icon name="notifications" size={24} color="#FFFFFF" />
+          <Icon name="notifications-none" size={24} color="#D5AF92" />
           <View style={styles.notificationBadge} />
         </TouchableOpacity>
       </View>
@@ -56,11 +56,10 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     borderRadius: 15,
-    marginRight: 15,
+    marginRight: 5,
   },
   notificationIcon: {
     position: "relative",
-    marginRight: 10,
   },
   notificationBadge: {
     position: "absolute",

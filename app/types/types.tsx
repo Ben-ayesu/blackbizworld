@@ -70,3 +70,15 @@ export interface Business {
     longitude: number;
   };
 }
+
+export interface Promotion {
+  id: string;
+  title: string;
+  image: string;
+  originalPrice: number;
+  discountedPrice: number;
+  discountPercentage: number;
+  description: string;
+  isNew?: boolean;
+  isHot?: boolean;
+}
