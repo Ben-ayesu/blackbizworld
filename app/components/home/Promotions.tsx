@@ -21,7 +21,7 @@ const DUMMY_PROMOTIONS: Promotion[] = [
   },
   {
     id: "2",
-    title: "Limited Time Offer",
+    title: "Errant Empire Pills",
     image: "https://example.com/image2.jpg",
     originalPrice: 65,
     discountedPrice: 36,
@@ -31,7 +31,7 @@ const DUMMY_PROMOTIONS: Promotion[] = [
   },
   {
     id: "3",
-    title: "Limited Time Offer",
+    title: "Errant Empire Pills",
     image: "https://example.com/image2.jpg",
     originalPrice: 65,
     discountedPrice: 36,
@@ -41,7 +41,7 @@ const DUMMY_PROMOTIONS: Promotion[] = [
   },
   {
     id: "4",
-    title: "Limited Time Offer",
+    title: "Errant Empire Pills",
     image: "https://example.com/image2.jpg",
     originalPrice: 65,
     discountedPrice: 36,

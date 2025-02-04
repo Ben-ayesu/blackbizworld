@@ -12,7 +12,7 @@ const PromotionCard = ({ promotion, onPress }: PromotionCardProps) => {
     <TouchableOpacity onPress={onPress} activeOpacity={0.7}>
       <LinearGradient colors={["#1E1419", "#0E0F12"]} style={styles.container}>
         <Image
-          source={{ uri: promotion.image }}
+          source={require("@/app/assets/images/promotionimages.png")}
           style={styles.image}
           resizeMode="cover"
         />
@@ -33,6 +33,11 @@ const PromotionCard = ({ promotion, onPress }: PromotionCardProps) => {
                   <Text style={styles.badgeText}>Hot</Text>
                 </View>
               )}
+              <View style={styles.discountBadge}>
+                <Text style={styles.discountText}>
+                  {promotion.discountPercentage}% Off
+                </Text>
+              </View>
             </View>
           </View>
 
@@ -43,11 +48,6 @@ const PromotionCard = ({ promotion, onPress }: PromotionCardProps) => {
             <Text style={styles.discountedPrice}>
               CAD ${promotion.discountedPrice}
             </Text>
-            <View style={styles.discountBadge}>
-              <Text style={styles.discountText}>
-                {promotion.discountPercentage}% Off
-              </Text>
-            </View>
           </View>
 
           <Text style={styles.description} numberOfLines={2}>
