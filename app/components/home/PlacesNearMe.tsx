@@ -28,8 +28,18 @@ const PlacesNearMe = () => {
       imageUrl:
         "https://images.pexels.com/photos/2123482/pexels-photo-2123482.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     },
-    { id: "3", name: "Place 3", imageUrl: "https://via.placeholder.com/150" },
-    { id: "4", name: "Place 4", imageUrl: "https://via.placeholder.com/150" },
+    {
+      id: "3",
+      name: "Place 3",
+      imageUrl:
+        "https://images.pexels.com/photos/1485548/pexels-photo-1485548.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    },
+    {
+      id: "4",
+      name: "Place 4",
+      imageUrl:
+        "https://images.pexels.com/photos/2123482/pexels-photo-2123482.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    },
   ];
 
   const renderItem = ({ item }: { item: Place }) => (
