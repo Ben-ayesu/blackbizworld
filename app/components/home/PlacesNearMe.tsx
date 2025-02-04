@@ -94,7 +94,6 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     padding: 0,
     width: 261,
-    height: 272.29,
     backgroundColor: "linear-gradient(180deg, #1F1419 0%, #0E0F12 100%)",
     borderWidth: 1,
     borderColor: "#2D2721",
