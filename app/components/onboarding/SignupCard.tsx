@@ -10,11 +10,11 @@ const SignupCard = ({
   buttonText,
   currentStep,
   onPress,
-  onSkip
+  onSkip,
 }: SignupCardProps) => {
   return (
     <LinearGradient
-      colors={["rgba(32, 32, 32, 0.9)", "rgba(18, 18, 18, 0.9)"]}
+      colors={["rgba(234, 155, 96, 0.14)", "rgba(153, 153, 153, 0)"]}
       style={styles.container}
     >
       <View style={styles.content}>
@@ -45,6 +45,10 @@ const styles = StyleSheet.create({
     padding: 24,
     borderRadius: 16,
     backgroundColor: "transparent",
+    shadowColor: "#000000",
+    shadowOffset: { width: 13, height: 4 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
   },
   content: {
     alignItems: "center",
@@ -66,6 +70,9 @@ const styles = StyleSheet.create({
   bottomContent: {
     alignItems: "center",
     marginTop: 40,
+    borderRadius: 16,
+    overflow: "hidden",
+    backdropFilter: "blur(4px)",
   },
   button: {
     width: "100%",
