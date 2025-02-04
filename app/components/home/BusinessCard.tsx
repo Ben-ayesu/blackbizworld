@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import Animated, { FadeInDown } from "react-native-reanimated";
 import { Business } from "../../types/types";
@@ -19,17 +19,15 @@ const BusinessCard = ({ business, index }: BusinessCardProps) => {
         colors={["#1E1419", "#0E0F12"]}
         style={styles.gradientBackground}
       >
-        <TouchableOpacity>
-          {/* Category Tag */}
-          <View style={styles.categoryTag}>
-            <Icon
-              name={getCategoryIcon(business.category)}
-              size={14}
-              color="#1DA1F2"
-            />
-            <Text style={styles.businessCategory}>{business.category}</Text>
-          </View>
+        <View style={styles.imageContainer}>
+          <Image
+            source={require("@/app/assets/images/image.png")}
+            style={styles.businessImage}
+            resizeMode="cover"
+          />
+        </View>
 
+        <TouchableOpacity>
           {/* Business Name */}
           <Text
             style={styles.businessName}
@@ -66,18 +64,6 @@ const BusinessCard = ({ business, index }: BusinessCardProps) => {
               {business.location}
             </Text>
           </View>
-
-          {/* Features */}
-          <View style={styles.featuresContainer}>
-            {business.features.slice(0, 2).map((feature, idx) => (
-              <View key={idx} style={styles.featureTag}>
-                <Icon name="check-circle" size={12} color="#1DA1F2" />
-                <Text style={styles.featureText} numberOfLines={1}>
-                  {feature}
-                </Text>
-              </View>
-            ))}
-          </View>
         </TouchableOpacity>
       </LinearGradient>
     </Animated.View>
@@ -112,22 +98,20 @@ const styles = StyleSheet.create({
   },
   gradientBackground: {
     padding: 10,
-    borderRadius: 12,
+    borderRadius: 10,
   },
-  categoryTag: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "rgba(29, 161, 242, 0.1)",
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 12,
-    alignSelf: "flex-start",
-    marginBottom: 8,
+  imageContainer: {
+    width: "100%",
+    height: 142.82,
+    alignSelf: "stretch",
+    flex: 1,
+    overflow: "hidden",
+    marginBottom:10,
   },
-  businessCategory: {
-    fontSize: 12,
-    color: "#1DA1F2",
-    marginLeft: 4,
+  businessImage: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 7.32,
   },
   businessName: {
     fontSize: 16,
@@ -168,24 +152,6 @@ const styles = StyleSheet.create({
     color: "#B0B0B0",
     marginLeft: 4,
     flex: 1,
-  },
-  featuresContainer: {
-    flexDirection: "column",
-    gap: 4,
-  },
-  featureTag: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "rgba(29, 161, 242, 0.07)",
-    paddingHorizontal: 6,
-    paddingVertical: 3,
-    borderRadius: 6,
-    alignSelf: "flex-start",
-    gap: 3,
-  },
-  featureText: {
-    fontSize: 10,
-    color: "#1DA1F2",
   },
 });
 
