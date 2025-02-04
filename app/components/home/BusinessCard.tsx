@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import Animated, { FadeInDown } from "react-native-reanimated";
 import { Business } from "../../types/types";
+import { LinearGradient } from "expo-linear-gradient";
 
 interface BusinessCardProps {
   business: Business;
@@ -14,62 +15,71 @@ const BusinessCard = ({ business, index }: BusinessCardProps) => {
       entering={FadeInDown.delay(index * 100).duration(400)}
       style={styles.businessItem}
     >
-      <TouchableOpacity>
-        {/* Category Tag */}
-        <View style={styles.categoryTag}>
-          <Icon
-            name={getCategoryIcon(business.category)}
-            size={14}
-            color="#1DA1F2"
-          />
-          <Text style={styles.businessCategory}>{business.category}</Text>
-        </View>
+      <LinearGradient
+        colors={["#1E1419", "#0E0F12"]}
+        style={styles.gradientBackground}
+      >
+        <TouchableOpacity>
+          {/* Category Tag */}
+          <View style={styles.categoryTag}>
+            <Icon
+              name={getCategoryIcon(business.category)}
+              size={14}
+              color="#1DA1F2"
+            />
+            <Text style={styles.businessCategory}>{business.category}</Text>
+          </View>
 
-        {/* Business Name */}
-        <Text
-          style={styles.businessName}
-          numberOfLines={2}
-          ellipsizeMode="tail"
-        >
-          {business.name}
-        </Text>
-
-        {/* Rating and Reviews */}
-        <View style={styles.ratingContainer}>
-          <Icon name="star" size={14} color="#FFD700" />
-          <Text style={styles.rating}>{business.rating}</Text>
-          <Text style={styles.reviews}>({business.reviews} reviews)</Text>
-        </View>
-
-        {/* Description */}
-        <Text style={styles.description} numberOfLines={3} ellipsizeMode="tail">
-          {business.description}
-        </Text>
-
-        {/* Location */}
-        <View style={styles.locationContainer}>
-          <Icon name="location-on" size={14} color="#B0B0B0" />
+          {/* Business Name */}
           <Text
-            style={styles.businessLocation}
-            numberOfLines={1}
+            style={styles.businessName}
+            numberOfLines={2}
             ellipsizeMode="tail"
           >
-            {business.location}
+            {business.name}
           </Text>
-        </View>
 
-        {/* Features */}
-        <View style={styles.featuresContainer}>
-          {business.features.slice(0, 2).map((feature, idx) => (
-            <View key={idx} style={styles.featureTag}>
-              <Icon name="check-circle" size={12} color="#1DA1F2" />
-              <Text style={styles.featureText} numberOfLines={1}>
-                {feature}
-              </Text>
-            </View>
-          ))}
-        </View>
-      </TouchableOpacity>
+          {/* Rating and Reviews */}
+          <View style={styles.ratingContainer}>
+            <Icon name="star" size={14} color="#FFD700" />
+            <Text style={styles.rating}>{business.rating}</Text>
+            <Text style={styles.reviews}>({business.reviews} reviews)</Text>
+          </View>
+
+          {/* Description */}
+          <Text
+            style={styles.description}
+            numberOfLines={3}
+            ellipsizeMode="tail"
+          >
+            {business.description}
+          </Text>
+
+          {/* Location */}
+          <View style={styles.locationContainer}>
+            <Icon name="location-on" size={14} color="#B0B0B0" />
+            <Text
+              style={styles.businessLocation}
+              numberOfLines={1}
+              ellipsizeMode="tail"
+            >
+              {business.location}
+            </Text>
+          </View>
+
+          {/* Features */}
+          <View style={styles.featuresContainer}>
+            {business.features.slice(0, 2).map((feature, idx) => (
+              <View key={idx} style={styles.featureTag}>
+                <Icon name="check-circle" size={12} color="#1DA1F2" />
+                <Text style={styles.featureText} numberOfLines={1}>
+                  {feature}
+                </Text>
+              </View>
+            ))}
+          </View>
+        </TouchableOpacity>
+      </LinearGradient>
     </Animated.View>
   );
 };
@@ -91,9 +101,7 @@ const getCategoryIcon = (category: string): string => {
 
 const styles = StyleSheet.create({
   businessItem: {
-    backgroundColor: "#1E1419",
     borderRadius: 12,
-    padding: 12,
     borderWidth: 1,
     borderColor: "#2D2721",
     shadowColor: "#000",
@@ -101,6 +109,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+  },
+  gradientBackground: {
+    padding: 10,
+    borderRadius: 12,
   },
   categoryTag: {
     flexDirection: "row",
