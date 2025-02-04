@@ -18,7 +18,9 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   input: {
-    backgroundColor: "transparent",
+    backgroundColor: "rgba(255, 255, 255, 0.05)",
+    borderWidth: 1,
+    borderRadius: 10,    
     marginVertical: 4,
   },
   socialContainer: {
