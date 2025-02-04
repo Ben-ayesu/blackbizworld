@@ -36,10 +36,15 @@ const PlacesNearMe = () => {
     <TouchableOpacity style={styles.card}>
       <Image source={{ uri: item.imageUrl }} style={styles.image} />
       <View style={styles.textContainer}>
-        <Text style={styles.placeName}>{item.name}</Text>
-        <TouchableOpacity style={styles.starButton}>
-          <Icon name="star-border" size={20} color="yellow" />
-        </TouchableOpacity>
+        <View style={styles.nameStarContainer}>
+          <Text style={styles.placeName}>{item.name}</Text>
+          <TouchableOpacity style={styles.starButton}>
+            <Icon name="star-border" size={20} color="yellow" />
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.placeDescription}>
+          Farmer J St. Mess's Park is a peaceful haven
+        </Text>
       </View>
     </TouchableOpacity>
   );
@@ -69,34 +74,58 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 10,
   },
-  listContent: {},
+  listContent: {
+    gap: 15,
+  },
   card: {
-    width: 150,
-    height: 150,
-    marginRight: 10,
-    borderRadius: 10,
-    overflow: "hidden",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    padding: 0,
+    width: 261,
+    height: 272.29,
+    backgroundColor: "linear-gradient(180deg, #1F1419 0%, #0E0F12 100%)",
+    borderWidth: 1,
+    borderColor: "#2D2721",
+    borderRadius: 16,
+    marginBottom: 10,
   },
   image: {
     width: "100%",
-    height: "100%",
-    position: "absolute",
+    height: 150,
+    padding: 8,
+    borderRadius: 16,
   },
   textContainer: {
-    flex: 1,
-    justifyContent: "flex-end",
     padding: 10,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+  },
+  nameStarContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+    alignItems: "center",
   },
   placeName: {
+    fontFamily: "Product Sans",
+    fontSize: 18,
+    lineHeight: 24,
     color: "#FFFFFF",
+    flex: 1,
+  },
+  placeDescription: {
+    fontFamily: "Work Sans",
     fontSize: 14,
-    fontWeight: "bold",
+    lineHeight: 21,
+    color: "rgba(255, 255, 255, 0.55)",
+    marginBottom: 10,
   },
   starButton: {
-    position: "absolute",
-    top: 10,
-    right: 10,
+    marginLeft: 10,
   },
 });
 
